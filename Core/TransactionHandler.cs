@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CsvHelper;
 
 namespace Ninance_v2.Core
@@ -12,17 +10,26 @@ namespace Ninance_v2.Core
 
     public class CsvTransaction
     {
-        public int id { get; set; }
-        public float timestamp { get; set; }
-        public double amount { get; set; }
-        public bool plusOrMinus { get; set; }
-        public string usage { get; set; }
+        public int Id { get; set; }
+        public float Timestamp { get; set; }
+        public double Amount { get; set; }
+        public bool PlusOrMinus { get; set; } // True is plus and False is minus
+        public string Usage { get; set; }
+
+        public CsvTransaction(int id, double amount, bool plusOrMinus, string usage)
+        {
+            Id = id;
+            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            Amount = amount;
+            PlusOrMinus = plusOrMinus;
+            Usage = usage;
+        }
     }
 
     public class TransactionHandler
     {
 
-        private string csvPath = Environment.CurrentDirectory + "/data/transactions.csv";
+        private string CsvPath = Environment.CurrentDirectory + "/data/transactions.csv";
 
         public TransactionHandler()
         {
@@ -31,38 +38,88 @@ namespace Ninance_v2.Core
                 Directory.CreateDirectory(Environment.CurrentDirectory + "/data");
 
             /* Create .csv file if it doesn't exist */
-            if (!File.Exists(csvPath))
+            if (!File.Exists(CsvPath))
             {
-                using (var stream = File.Open(csvPath, FileMode.Create))
+                using (var stream = File.Open(CsvPath, FileMode.Create))
                 using (var writer = new StreamWriter(stream))
                 using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
                 {
                     /* Write header and flush */
                     csv.WriteHeader<CsvTransaction>();
                     csv.Flush();
+
+                    Console.WriteLine("Created data/transactions.csv");
                 }
             }
         }
 
         public void AddTransaction(double amount, bool plusOrMinus, string usage)
         {
+            using (var stream = File.Open(CsvPath, FileMode.Append))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                CsvTransaction csvTransaction = new CsvTransaction(GetIdForNewTransaction(), amount, plusOrMinus, usage);
 
+                /* Write new transaction record and flush */
+                csv.WriteRecord(csvTransaction);
+                csv.NextRecord();
+                csv.Flush();
+            }
         }
-        
-        public bool RemoveTransaction(int id)
+
+        public int GetIdForNewTransaction()
         {
-            return false;
+            return File.ReadLines(CsvPath).Count();
         }
 
-        public CsvTransaction[] FindTransactionsByUsage(string usage)
+        public void RemoveTransaction(int id)
         {
-            return null;
+            List<CsvTransaction> allTransactions = ListTransactions();
+            allTransactions.Remove(allTransactions.Find(transaction => transaction.Id == id));
+
+            File.Delete(CsvPath);
+
+            using (var stream = File.Open(CsvPath, FileMode.Create))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                /* Write header, records and flush */
+                csv.WriteHeader<CsvTransaction>();
+                csv.WriteRecords(allTransactions);
+                csv.Flush();
+            }
         }
 
-        public List<CsvTransaction> ListTransactions(int max)
+        public List<CsvTransaction> FindTransactionsByUsage(string usage)
         {
-            return null;
+            List<CsvTransaction> transactions = new List<CsvTransaction>();
+
+            foreach(CsvTransaction csvTransaction in ListTransactions())
+                if (csvTransaction.Usage.Contains(usage))
+                    transactions.Add(csvTransaction);
+
+            return transactions;
         }
 
+        public List<CsvTransaction> ListTransactions()
+        {
+            using (var reader = new StreamReader(CsvPath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                return csv.GetRecords<CsvTransaction>().ToList();
+        }
+
+        public double GetBalance()
+        {
+            double currentBalance = 0.0;
+
+            foreach (CsvTransaction transaction in ListTransactions())
+                if(transaction.PlusOrMinus)
+                    currentBalance += transaction.Amount;
+                else
+                    currentBalance -= transaction.Amount;
+
+            return currentBalance;
+        }
     }
 }

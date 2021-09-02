@@ -21,10 +21,10 @@
                 </Border.Clip>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
-                        <TextBlock Text="" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
+                        <TextBlock Text="Balance" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
+                        <TextBlock Text="00.00$" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
                     </StackPanel>
-                    <Image Width="250" Height="250" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,-99,-75">
+                    <Image Source="/Images/DogecoinLogo.png" Width="250" Height="250" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="170,0,-20,-90" Opacity="0.3">
                         <Image.RenderTransform>
                             <TransformGroup>
                                 <RotateTransform Angle="-15"/>
