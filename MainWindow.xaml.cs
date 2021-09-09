@@ -21,15 +21,10 @@ namespace Ninance_v2
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public TransactionHandler transactionHandler;
-
         public MainWindow()
         {
             InitializeComponent();
             PreviewKeyDown += new KeyEventHandler(HandleEsc);
-
-            transactionHandler = new TransactionHandler();
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)

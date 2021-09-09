@@ -89,6 +89,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core\DatabaseHandler.cs" />
+    <Compile Include="Core\GridViewSort.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\TransactionHandler.cs" />
@@ -109,6 +110,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Theme\SearchBarTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\TransactionListTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

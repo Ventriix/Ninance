@@ -11,25 +11,25 @@ namespace Ninance_v2.Core
     public class CsvTransaction
     {
         public int Id { get; set; }
-        public float Timestamp { get; set; }
+        public long Timestamp { get; set; }
         public double Amount { get; set; }
         public bool PlusOrMinus { get; set; } // True is plus and False is minus
         public string Usage { get; set; }
 
-        public CsvTransaction(int id, double amount, bool plusOrMinus, string usage)
+        public CsvTransaction(int Id, double Amount, bool PlusOrMinus, string Usage)
         {
-            Id = id;
+            this.Id = Id;
             Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-            Amount = amount;
-            PlusOrMinus = plusOrMinus;
-            Usage = usage;
+            this.Amount = Amount;
+            this.PlusOrMinus = PlusOrMinus;
+            this.Usage = Usage;
         }
     }
 
     public class TransactionHandler
     {
 
-        private string CsvPath = Environment.CurrentDirectory + "/data/transactions.csv";
+        public static string CsvPath = Environment.CurrentDirectory + "/data/transactions.csv";
 
         public TransactionHandler()
         {
@@ -46,6 +46,7 @@ namespace Ninance_v2.Core
                 {
                     /* Write header and flush */
                     csv.WriteHeader<CsvTransaction>();
+                    csv.NextRecord();
                     csv.Flush();
 
                     Console.WriteLine("Created data/transactions.csv");
@@ -55,11 +56,13 @@ namespace Ninance_v2.Core
 
         public void AddTransaction(double amount, bool plusOrMinus, string usage)
         {
+            int id = GetIdForNewTransaction();
+
             using (var stream = File.Open(CsvPath, FileMode.Append))
             using (var writer = new StreamWriter(stream))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                CsvTransaction csvTransaction = new CsvTransaction(GetIdForNewTransaction(), amount, plusOrMinus, usage);
+                CsvTransaction csvTransaction = new CsvTransaction(id, amount, plusOrMinus, usage);
 
                 /* Write new transaction record and flush */
                 csv.WriteRecord(csvTransaction);
@@ -68,7 +71,7 @@ namespace Ninance_v2.Core
             }
         }
 
-        public int GetIdForNewTransaction()
+        public static int GetIdForNewTransaction()
         {
             return File.ReadLines(CsvPath).Count();
         }

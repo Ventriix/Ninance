@@ -20,7 +20,6 @@ namespace Ninance_v2.MVVM.ViewModel
             set { _currentView = value; OnPropertyChanged(); }
         }
 
-
         public MainViewModel()
         {
             HomeVM = new HomeViewModel();
@@ -31,7 +30,6 @@ namespace Ninance_v2.MVVM.ViewModel
             {
                 CurrentView = HomeVM;
             });
-
 
             TransactionsViewCommand = new RelayCommand(o =>
             {

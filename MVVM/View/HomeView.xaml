@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
+             xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel/>
+    </UserControl.DataContext>
     <StackPanel>
         <TextBlock Text="Home" Foreground="White" FontSize="28" HorizontalAlignment="Left" Margin="0,0,0,20"/>
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -22,7 +26,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Balance" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
-                        <TextBlock Text="00.00$" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
+                        <TextBlock Text="{Binding DisplayedBalance}" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
                     </StackPanel>
                     <Image Source="/Images/DogecoinLogo.png" Width="250" Height="250" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="170,0,-20,-90" Opacity="0.3">
                         <Image.RenderTransform>
@@ -33,13 +37,18 @@
                     </Image>
                 </Grid>
             </Border>
-            <Border Width="200" Height="200" CornerRadius="10" Margin="45,0,0,0">
+            <Border Visibility="{Binding ShowLastTransaction}" Width="200" Height="200" CornerRadius="10" Margin="45,0,0,0">
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#ffc554" Offset="0.0"/>
                         <GradientStop Color="#ffb73a" Offset="1"/>
                     </LinearGradientBrush>
                 </Border.Background>
+                <Grid>
+                    <TextBlock Text="Last Transaction" Foreground="White" FontSize="24" Margin="10,10,10,0" TextAlignment="Center"/>
+                    <TextBlock Text="Usage" Foreground="White" FontSize="20" Margin="10,60,10,0" TextAlignment="Center" TextWrapping="Wrap"/>
+                    <TextBlock Text="-00.00€" Foreground="White" FontSize="40" Margin="10,140,10,0" TextAlignment="Center"/>
+                </Grid>
             </Border>
         </StackPanel>
         <StackPanel>

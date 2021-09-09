@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninance_v2.Core;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,11 @@ namespace Ninance_v2
     /// </summary>
     public partial class App : Application
     {
+        public static TransactionHandler TransactionHandler;
+
+        public App()
+        {
+            TransactionHandler = new TransactionHandler();
+        }
     }
 }
