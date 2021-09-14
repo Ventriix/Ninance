@@ -11,6 +11,8 @@
                 <ResourceDictionary Source="Theme/MenuButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/SearchBarTheme.xaml"/>
                 <ResourceDictionary Source="Theme/TransactionListTheme.xaml"/>
+                <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
+                <ResourceDictionary Source="Theme/AddTransactionBoxTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
@@ -18,6 +20,15 @@
             <DataTemplate DataType="{x:Type viewModel:TransactionsViewModel}">
                 <view:TransactionsView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AboutViewModel}">
+                <view:AboutView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:AddTransactionViewModel}">
+                <view:AddTransactionView/>
+            </DataTemplate>
+            <Style x:Key="WindowFontStyle" TargetType="{x:Type Window}">
+                <Setter Property="FontFamily" Value="/Fonts/#Glory"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

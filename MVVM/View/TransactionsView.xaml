@@ -4,21 +4,39 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
-             xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
              xmlns:util="clr-namespace:Ninance_v2.Core"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.DataContext>
-        <viewModel:TransactionsViewModel/>
-    </UserControl.DataContext>
+    <UserControl.Resources>
+        <util:UnixToDateTimeConverter x:Key="UnixToDateTime"/>
+        <util:BoolToStringConverter x:Key="BoolToString" ValueIfFalse="-" ValueIfTrue="+"/>
+    </UserControl.Resources>
     <Grid>
-        <ListView util:GridViewSort.AutoSort="True" Background="#272537" AlternationCount="2" ItemContainerStyle="{StaticResource TransactionListItemTheme}" Style="{StaticResource TransactionListTheme}" ItemsSource="{Binding Transactions}">
+        <ListView util:GridViewSort.AutoSort="True" Background="#272537" AlternationCount="2" ItemContainerStyle="{StaticResource TransactionListItemTheme}" Style="{StaticResource TransactionListTheme}" ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}">
             <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Id" Width="30" DisplayMemberBinding="{Binding Id}" util:GridViewSort.PropertyName="Id"/>
+                <GridView ColumnHeaderContainerStyle="{StaticResource TransactionListHeaderTheme}">
+                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}" util:GridViewSort.PropertyName="Id"/>
                     <GridViewColumn Header="Usage" Width="300" DisplayMemberBinding="{Binding Usage}"/>
-                    <GridViewColumn Header="Date" Width="100"/>
-                    <GridViewColumn Header="Amount" Width="75" DisplayMemberBinding="{Binding Amount}" util:GridViewSort.PropertyName="Amount"/>
+                    <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Timestamp, ConverterCulture='de-DE', Converter={StaticResource UnixToDateTime}, StringFormat={}{0:dd.MM.yyyy HH:mm}}" util:GridViewSort.PropertyName="Id"/>
+                    <GridViewColumn Header="Amount" Width="75" util:GridViewSort.PropertyName="Amount">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding StringFormat="{}{0}{1:c}">
+                                <Binding Path="PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                <Binding Path="Amount"/>
+                            </MultiBinding>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Manage" Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource ButtonTheme}" CommandParameter="{Binding Id}" Command="{Binding DataContext.DeleteTransaction, RelativeSource={RelativeSource AncestorType=ListView, Mode=FindAncestor}}" Width="75" Height="25">
+                                    <Button.Content>
+                                        <TextBlock Text="Delete" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Button.Content>
+                                </Button>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

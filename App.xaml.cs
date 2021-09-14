@@ -1,11 +1,7 @@
 ﻿using Ninance_v2.Core;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace Ninance_v2
 {
@@ -15,10 +11,23 @@ namespace Ninance_v2
     public partial class App : Application
     {
         public static TransactionHandler TransactionHandler;
+        public static DatabaseHandler DatabaseHandler;
 
         public App()
         {
             TransactionHandler = new TransactionHandler();
+            DatabaseHandler = new DatabaseHandler();
+        }
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            FrameworkElement.LanguageProperty.OverrideMetadata(
+                typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(
+                    CultureInfo.CurrentCulture.IetfLanguageTag)));
+
+            base.OnStartup(e);
         }
     }
 }

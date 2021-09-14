@@ -20,10 +20,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border
-                         BorderBrush="Transparent"
-                         BorderThickness="0"
-                         Background="{TemplateBinding Background}">
+                    <Border BorderBrush="Transparent" BorderThickness="0" Background="{TemplateBinding Background}">
                         <GridViewRowPresenter HorizontalAlignment="Stretch" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
                     </Border>
                 </ControlTemplate>
@@ -33,5 +30,112 @@
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <Style TargetType="{x:Type Thumb}" x:Key="GridViewColumnHeaderGripper">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                        </GradientStopCollection>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Padding="{TemplateBinding Padding}" Background="Transparent">
+                        <Rectangle HorizontalAlignment="Center" Width="1" Fill="{TemplateBinding Background}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type GridViewColumnHeader}" x:Key="TransactionListHeaderTheme">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Grid>
+                                <Border>
+                                    <Border.BorderBrush>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0.0" Color="#272537" />
+                                            <GradientStop Offset="1.0" Color="#151a2b" />
+                                        </LinearGradientBrush>
+                                    </Border.BorderBrush>
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <GradientStop Offset="0.0" Color="#272537" />
+                                            <GradientStop Offset="1.0" Color="#151a2b" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Padding="5,5,5,5" Text="{TemplateBinding Content}" TextAlignment="Center"/>
+                                </Border>
+                                <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Padding" Value="2"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                    <Grid>
+                        <Border>
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0.0" Color="#272537" />
+                                    <GradientStop Offset="1.0" Color="#1e1d1f" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0.0" Color="#272537" />
+                                    <GradientStop Offset="1.0" Color="#1e1d1f" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Padding="5,5,5,5" Text="{TemplateBinding Content}" TextAlignment="Center"/>
+                        </Border>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="DeleteButtonTheme">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#272537"/>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderThickness="1" BorderBrush="White" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Foreground" Value="White"/>
     </Style>
 </ResourceDictionary>

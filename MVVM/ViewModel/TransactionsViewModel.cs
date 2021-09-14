@@ -1,18 +1,45 @@
 ﻿using Ninance_v2.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace Ninance_v2.MVVM.ViewModel
 {
     class TransactionsViewModel : ObservableObject
     {
-        public List<CsvTransaction> Transactions
+
+        private ObservableCollection<CsvTransaction> _transactions;
+
+        public ObservableCollection<CsvTransaction> Transactions
         {
-            get { return App.TransactionHandler.ListTransactions(); }
-            set { Transactions = value; OnPropertyChanged(); }
+            get { return _transactions; }
+            set { _transactions = value; OnPropertyChanged(); TransactionsView.Refresh(); }
+        }
+
+        public ICollectionView TransactionsView
+        {
+            get { return CollectionViewSource.GetDefaultView(Transactions); }
+        }
+
+        public ICommand DeleteTransaction { get; set; }
+
+        public TransactionsViewModel()
+        {
+            DeleteTransaction = new RelayCommand(parameter => {
+                App.TransactionHandler.RemoveTransaction((int)parameter);
+                UpdateTransactions();
+            }, parameter => { return parameter is int; });
+
+            UpdateTransactions();
+        }
+
+        public void UpdateTransactions()
+        {
+            var transactions = App.TransactionHandler.ListTransactions();
+            transactions.Reverse();
+
+            Transactions = new ObservableCollection<CsvTransaction>(transactions);
         }
     }
 }

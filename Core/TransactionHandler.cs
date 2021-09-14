@@ -16,6 +16,15 @@ namespace Ninance_v2.Core
         public bool PlusOrMinus { get; set; } // True is plus and False is minus
         public string Usage { get; set; }
 
+        public CsvTransaction(int Id, long Timestamp, double Amount, bool PlusOrMinus, string Usage)
+        {
+            this.Id = Id;
+            this.Timestamp = Timestamp;
+            this.Amount = Amount;
+            this.PlusOrMinus = PlusOrMinus;
+            this.Usage = Usage;
+        }
+
         public CsvTransaction(int Id, double Amount, bool PlusOrMinus, string Usage)
         {
             this.Id = Id;
@@ -89,6 +98,7 @@ namespace Ninance_v2.Core
             {
                 /* Write header, records and flush */
                 csv.WriteHeader<CsvTransaction>();
+                csv.NextRecord();
                 csv.WriteRecords(allTransactions);
                 csv.Flush();
             }

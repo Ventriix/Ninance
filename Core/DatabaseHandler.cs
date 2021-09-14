@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using System;
 using System.Globalization;
 using System.IO;
 
@@ -23,7 +24,19 @@ namespace Ninance_v2.Core
     public class DatabaseHandler
     {
 
-        private string CsvPath = TransactionHandler.CsvPath;
+        private readonly string CsvPath = TransactionHandler.CsvPath;
+
+        public void ResetDatabase()
+        {
+            File.Delete(CsvPath);
+            App.TransactionHandler = new TransactionHandler();
+            App.DatabaseHandler = new DatabaseHandler();
+
+            MainWindow mainWindow = new MainWindow();
+            App.Current.MainWindow.Close();
+            App.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+        }
 
         public bool ImportFile(string path, DatabaseType version)
         {
@@ -44,23 +57,28 @@ namespace Ninance_v2.Core
                 {
                     if (version == DatabaseType.NinanceV1)
                     {
-                        csvReader.ValidateHeader<V1CsvTransaction>();
+                        int id = 1;
 
                         foreach(V1CsvTransaction v1CsvTransaction in csvReader.GetRecords<V1CsvTransaction>())
                         {
-                            CsvTransaction convertedCsvTransaction = new CsvTransaction(TransactionHandler.GetIdForNewTransaction(), v1CsvTransaction.amount, v1CsvTransaction.direction, v1CsvTransaction.usage);
+                            CsvTransaction convertedCsvTransaction = new CsvTransaction(id, v1CsvTransaction.timestamp, v1CsvTransaction.amount, v1CsvTransaction.direction, v1CsvTransaction.usage);
                             csvWriter.WriteRecord(convertedCsvTransaction);
+                            csvWriter.NextRecord();
+
+                            id++;
                         }
                     }
                     else if (version == DatabaseType.NinanceV2)
-                    {
-                        csvReader.ValidateHeader<CsvTransaction>();
                         csvWriter.WriteRecords(csvReader.GetRecords<CsvTransaction>());
-                    }
                 }
 
                 csvWriter.Flush();
             }
+
+            MainWindow mainWindow = new MainWindow();
+            App.Current.MainWindow.Close();
+            App.Current.MainWindow = mainWindow;
+            mainWindow.Show();
 
             return true;
         }

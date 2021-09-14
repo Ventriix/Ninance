@@ -5,11 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
              xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
+             xmlns:util="clr-namespace:Ninance_v2.Core"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="800">
     <UserControl.DataContext>
         <viewModel:HomeViewModel/>
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <util:BoolToStringConverter x:Key="BoolToString" ValueIfTrue="+" ValueIfFalse="-"/>
+        <util:GreaterThanConverter x:Key="LastTransactionCutoff_1" GreaterThanValue="0"/>
+        <util:GreaterThanConverter x:Key="LastTransactionCutoff_2" GreaterThanValue="1"/>
+        <util:GreaterThanConverter x:Key="LastTransactionCutoff_3" GreaterThanValue="2"/>
+        <util:GreaterThanConverter x:Key="LastTransactionCutoff_4" GreaterThanValue="3"/>
+        <util:GreaterThanConverter x:Key="LastTransactionCutoff_5" GreaterThanValue="4"/>
+    </UserControl.Resources>
     <StackPanel>
         <TextBlock Text="Home" Foreground="White" FontSize="28" HorizontalAlignment="Left" Margin="0,0,0,20"/>
         <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
@@ -26,7 +35,7 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Balance" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
-                        <TextBlock Text="{Binding DisplayedBalance}" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
+                        <TextBlock Text="{Binding Balance, StringFormat={}{0:c}}" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
                     </StackPanel>
                     <Image Source="/Images/DogecoinLogo.png" Width="250" Height="250" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="170,0,-20,-90" Opacity="0.3">
                         <Image.RenderTransform>
@@ -37,7 +46,17 @@
                     </Image>
                 </Grid>
             </Border>
-            <Border Visibility="{Binding ShowLastTransaction}" Width="200" Height="200" CornerRadius="10" Margin="45,0,0,0">
+            <Border Width="200" Height="200" CornerRadius="10" Margin="45,0,0,0">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_1}}" Value="False">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
                         <GradientStop Color="#ffc554" Offset="0.0"/>
@@ -46,8 +65,15 @@
                 </Border.Background>
                 <Grid>
                     <TextBlock Text="Last Transaction" Foreground="White" FontSize="24" Margin="10,10,10,0" TextAlignment="Center"/>
-                    <TextBlock Text="Usage" Foreground="White" FontSize="20" Margin="10,60,10,0" TextAlignment="Center" TextWrapping="Wrap"/>
-                    <TextBlock Text="-00.00€" Foreground="White" FontSize="40" Margin="10,140,10,0" TextAlignment="Center"/>
+                    <TextBlock Text="{Binding LastTransactions[0].Usage}" Foreground="White" FontSize="20" Margin="10,50,10,60" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Height="90"/>
+                    <TextBlock Foreground="White" FontSize="40" Margin="10,140,10,0" TextAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="{}{0}{1:c}">
+                                <Binding Path="LastTransactions[0].PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                <Binding Path="LastTransactions[0].Amount"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
                 </Grid>
             </Border>
         </StackPanel>
@@ -57,12 +83,111 @@
                     <Setter Property="Margin" Value="15,0,0,0"/>
                 </Style>
             </StackPanel.Resources>
-            <TextBlock Text="Recent Transactions" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,10"/>
+            <TextBlock Text="Recent Transactions" Foreground="White" FontSize="20" HorizontalAlignment="Left" Margin="0,0,0,10">
+                <TextBlock.Style>
+                    <Style BasedOn="{StaticResource {x:Type TextBlock}}" TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_2}}" Value="False">
+                                <Setter Property="Visibility" Value="Hidden"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
             <StackPanel Orientation="Horizontal">
-                <Border Width="150" Height="150" Background="#844eff" CornerRadius="10" Margin="0"/>
-                <Border Width="150" Height="150" Background="#4e99ff" CornerRadius="10"/>
-                <Border Width="150" Height="150" Background="#4eff91" CornerRadius="10"/>
-                <Border Width="150" Height="150" Background="#ecff43" CornerRadius="10"/>
+                <Border Width="150" Height="150" Background="#844eff" CornerRadius="10" Margin="0">
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_2}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <TextBlock Width="120" Text="{Binding LastTransactions[1].Usage}" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Height="90" Margin="0,10,0,50"/>
+                        <TextBlock Foreground="White" FontSize="30" Margin="10,100,10,10" TextAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}{1:c}">
+                                    <Binding Path="LastTransactions[1].PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                    <Binding Path="LastTransactions[1].Amount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+                <Border Width="150" Height="150" Background="#4e99ff" CornerRadius="10">
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_3}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <TextBlock Width="120" Text="{Binding LastTransactions[2].Usage}" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Height="90" Margin="0,10,0,50"/>
+                        <TextBlock Foreground="White" FontSize="30" Margin="10,100,10,10" TextAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}{1:c}">
+                                    <Binding Path="LastTransactions[2].PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                    <Binding Path="LastTransactions[2].Amount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+                <Border Width="150" Height="150" Background="#4eff91" CornerRadius="10">
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_4}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <TextBlock Width="120" Text="{Binding LastTransactions[3].Usage}" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Height="90" Margin="0,10,0,50"/>
+                        <TextBlock Foreground="White" FontSize="30" Margin="10,100,10,10" TextAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}{1:c}">
+                                    <Binding Path="LastTransactions[3].PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                    <Binding Path="LastTransactions[3].Amount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </Border>
+                <Border Width="150" Height="150" Background="#ff8614" CornerRadius="10">
+                    <Border.Style>
+                        <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LastTransactions.Count, ConverterCulture='de-DE', Converter={StaticResource LastTransactionCutoff_5}}" Value="False">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <TextBlock Width="120" Text="{Binding LastTransactions[4].Usage}" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Height="90" Margin="0,10,0,50"/>
+                        <TextBlock Foreground="White" FontSize="30" Margin="10,100,10,10" TextAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0}{1:c}">
+                                    <Binding Path="LastTransactions[4].PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                    <Binding Path="LastTransactions[4].Amount"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Grid>
+                </Border>
             </StackPanel>
         </StackPanel>
     </StackPanel>

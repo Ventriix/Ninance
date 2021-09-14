@@ -10,7 +10,10 @@
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        Icon="Images/Logo.png"
+        Style="{StaticResource WindowFontStyle}">
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
@@ -24,19 +27,23 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBlock Text="NINANCE" 
+            <TextBlock Text="Ninance" 
                        VerticalAlignment="Center" HorizontalAlignment="Center" 
-                       Foreground="White" FontSize="22" Margin="0,0,0,10"/>
+                       Foreground="White" FontSize="22" Margin="0,0,0,10" FontWeight="Medium"/>
             <TextBlock Text="Second Edition" 
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" 
-                       Foreground="White" FontSize="12" Margin="0,0,0,15"/>
+                       Foreground="White" FontSize="12" Margin="0,0,0,15" FontWeight="Light"/>
             <StackPanel Grid.Row="1">
-                <RadioButton Content="Home" Height="50"
+                <RadioButton x:Name="HomeRadioButton" Content="Home" Height="50"
                              Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" IsChecked="True" Command="{Binding HomeViewCommand}"/>
-                <RadioButton Content="Transactions" Height="50"
+                <RadioButton x:Name="TransactionsRadioButton" Content="Transactions" Height="50"
                              Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding TransactionsViewCommand}"/>
+                <RadioButton x:Name="AddTransactionRadioButton" Content="Add Transaction" Height="50"
+                             Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding AddTransactionViewCommand}"/>
+                <RadioButton x:Name="AboutRadioButton" Content="About" Height="50"
+                             Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding AboutViewCommand}"/>
             </StackPanel>
-            <TextBox Width="250" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.Column="1" Style="{StaticResource SearchBar}"/>
+            <TextBox Text="{Binding TransactionSearchBarText, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="40" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="5" Grid.Column="1" Style="{StaticResource SearchBar}"/>
             <ContentControl Grid.Row="1" Grid.Column="1" Margin="10" Content="{Binding CurrentView}"/>
         </Grid>
     </Border>

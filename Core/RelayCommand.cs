@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace Ninance_v2.Core
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private Action<object> _execute;
         private Func<object, bool> _canExecute;
