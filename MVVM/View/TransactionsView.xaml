@@ -16,7 +16,7 @@
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource TransactionListHeaderTheme}">
                     <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}" util:GridViewSort.PropertyName="Id"/>
-                    <GridViewColumn Header="Usage" Width="300" DisplayMemberBinding="{Binding Usage}"/>
+                    <GridViewColumn Header="Usage" Width="200" DisplayMemberBinding="{Binding Usage}"/>
                     <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Timestamp, ConverterCulture='de-DE', Converter={StaticResource UnixToDateTime}, StringFormat={}{0:dd.MM.yyyy HH:mm}}" util:GridViewSort.PropertyName="Id"/>
                     <GridViewColumn Header="Amount" Width="75" util:GridViewSort.PropertyName="Amount">
                         <GridViewColumn.DisplayMemberBinding>
@@ -26,6 +26,15 @@
                             </MultiBinding>
                         </GridViewColumn.DisplayMemberBinding>
                     </GridViewColumn>
+                    <GridViewColumn Header="Amount excl. VAT" Width="100" util:GridViewSort.PropertyName="Amount">
+                        <GridViewColumn.DisplayMemberBinding>
+                            <MultiBinding StringFormat="{}{0}{1:c}">
+                                <Binding Path="PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
+                                <Binding Path="Amount"/>
+                            </MultiBinding>
+                        </GridViewColumn.DisplayMemberBinding>
+                    </GridViewColumn>
+                    <GridViewColumn Header="VAT" Width="75" util:GridViewSort.PropertyName="Tax"/>
                     <GridViewColumn Header="Manage" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

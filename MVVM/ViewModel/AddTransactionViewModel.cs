@@ -35,7 +35,7 @@ namespace Ninance_v2.MVVM.ViewModel
                 if (!double.TryParse(AmountText.Substring(1), out parsedAmount))
                     return;
 
-                App.TransactionHandler.AddTransaction(parsedAmount, AmountText.StartsWith("+"), UsageText);
+                App.TransactionHandler.AddTransaction(parsedAmount, 0, AmountText.StartsWith("+"), UsageText);
                 UsageText = "";
                 AmountText = "";
 

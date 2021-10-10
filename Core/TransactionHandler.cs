@@ -13,23 +13,26 @@ namespace Ninance_v2.Core
         public int Id { get; set; }
         public long Timestamp { get; set; }
         public double Amount { get; set; }
+        public double Tax { get; set; }
         public bool PlusOrMinus { get; set; } // True is plus and False is minus
         public string Usage { get; set; }
 
-        public CsvTransaction(int Id, long Timestamp, double Amount, bool PlusOrMinus, string Usage)
+        public CsvTransaction(int Id, long Timestamp, double Amount, double Tax, bool PlusOrMinus, string Usage)
         {
             this.Id = Id;
             this.Timestamp = Timestamp;
             this.Amount = Amount;
+            this.Tax = Tax;
             this.PlusOrMinus = PlusOrMinus;
             this.Usage = Usage;
         }
 
-        public CsvTransaction(int Id, double Amount, bool PlusOrMinus, string Usage)
+        public CsvTransaction(int Id, double Amount, double Tax, bool PlusOrMinus, string Usage)
         {
             this.Id = Id;
             Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
             this.Amount = Amount;
+            this.Tax = Tax;
             this.PlusOrMinus = PlusOrMinus;
             this.Usage = Usage;
         }
@@ -63,7 +66,7 @@ namespace Ninance_v2.Core
             }
         }
 
-        public void AddTransaction(double amount, bool plusOrMinus, string usage)
+        public void AddTransaction(double amount, double tax, bool plusOrMinus, string usage)
         {
             int id = GetIdForNewTransaction();
 
@@ -71,7 +74,7 @@ namespace Ninance_v2.Core
             using (var writer = new StreamWriter(stream))
             using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
             {
-                CsvTransaction csvTransaction = new CsvTransaction(id, amount, plusOrMinus, usage);
+                CsvTransaction csvTransaction = new CsvTransaction(id, amount, tax, plusOrMinus, usage);
 
                 /* Write new transaction record and flush */
                 csv.WriteRecord(csvTransaction);

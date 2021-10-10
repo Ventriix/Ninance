@@ -12,12 +12,12 @@
     </UserControl.DataContext>
     <Grid>
         <TextBlock Text="Ninance" FontWeight="Medium" Margin="0,0,0,350" Foreground="White" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Text="Second Edition" FontWeight="Light" Margin="0,0,0,300" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Text="Developed for personal usage." Margin="0,0,0,150" Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <TextBlock Text="Version: v1.0.0" FontWeight="Light" Margin="0,0,0,110" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Second Edition for Business" FontWeight="Light" Margin="0,0,0,300" Foreground="White" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Developed for business usage." Margin="0,0,0,150" Foreground="White" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Text="Version: v1.0.0-BUSINESS" FontWeight="Light" Margin="0,0,0,110" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Command="{Binding ImportV2DatabaseCommand}" Margin="-150,0,0,0" Height="35" Width="125" Style="{StaticResource ButtonTheme}">Import Database</Button>
-        <Button Command="{Binding ImportV1DatabaseCommand}" Margin="-150,100,0,0" Height="35" Width="125" Style="{StaticResource ButtonTheme}">Import Old Database</Button>
         <Button Command="{Binding ExportDatabaseCommand}" Margin="150,0,0,0" Height="35" Width="125" Style="{StaticResource ButtonTheme}">Export Database</Button>
-        <Button Command="{Binding ResetDatabaseCommand}" Margin="150,100,0,0" Height="35" Width="125" Style="{StaticResource ButtonTheme}">Reset Database</Button>
+        <Button Command="{Binding ResetDatabaseCommand}" Margin="0,100,0,0" Height="35" Width="125" Style="{StaticResource ButtonTheme}">Reset Database</Button>
+        <TextBlock Text="© Variaty Studios 2021" FontWeight="Light" Margin="0,0,0,-400" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

@@ -30,7 +30,7 @@
             <TextBlock Text="Ninance" 
                        VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Foreground="White" FontSize="22" Margin="0,0,0,10" FontWeight="Medium"/>
-            <TextBlock Text="Second Edition" 
+            <TextBlock Text="Second Edition for Business" 
                        VerticalAlignment="Bottom" HorizontalAlignment="Center" 
                        Foreground="White" FontSize="12" Margin="0,0,0,15" FontWeight="Light"/>
             <StackPanel Grid.Row="1">

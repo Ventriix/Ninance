@@ -34,7 +34,7 @@
                 </Border.Clip>
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Balance" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
+                        <TextBlock Text="Balance incl. VAT" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
                         <TextBlock Text="{Binding Balance, StringFormat={}{0:c}}" Foreground="White" FontSize="28" Margin="20,10,10,0"/>
                     </StackPanel>
                     <Image Source="/Images/DogecoinLogo.png" Width="250" Height="250" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="170,0,-20,-90" Opacity="0.3">
