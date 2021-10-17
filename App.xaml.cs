@@ -13,6 +13,10 @@ namespace Ninance_v2
         public static TransactionHandler TransactionHandler;
         public static DatabaseHandler DatabaseHandler;
 
+        /**
+         * TODO: CompanySync, monthly cost automation, invoice generation, Updater
+         */
+
         public App()
         {
             TransactionHandler = new TransactionHandler();

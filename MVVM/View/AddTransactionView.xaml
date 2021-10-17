@@ -14,8 +14,8 @@
         <TextBlock Text="Add Transaction" FontSize="34" Foreground="White" TextAlignment="Center" Width="250" Height="50" Margin="0,0,0,350"/>
         <TextBox MaxLength="40" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Usage" Width="350" Height="50" Margin="0,0,0,200" Style="{StaticResource AddTransactionBox}"/>
         <TextBox MaxLength="10" MaxLines="1" Text="{Binding AmountText, UpdateSourceTrigger=PropertyChanged}" Tag="Amount of money (ex. -24,99)" Width="175" Height="50" Margin="175,0,0,50" Style="{StaticResource AddTransactionBox}"/>
-        <TextBox MaxLength="10" MaxLines="1" Text="{Binding AmountText, UpdateSourceTrigger=PropertyChanged}" Tag="VAT Percent (ex. 19%)" Width="150" Height="50" Margin="-200,0,0,50" Style="{StaticResource AddTransactionBox}"/>
-        <CheckBox Content="Includes VAT" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,25,0,0"/>
+        <TextBox MaxLength="10" MaxLines="1" Text="{Binding VatText, UpdateSourceTrigger=PropertyChanged}" Tag="VAT Percent (ex. 19%)" Width="150" Height="50" Margin="-200,0,0,50" Style="{StaticResource AddTransactionBox}"/>
+        <CheckBox IsChecked="{Binding AmountIncludesVatBool, UpdateSourceTrigger=PropertyChanged}" Content="Includes VAT" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="175,25,0,0"/>
         <Button Command="{Binding AddTransactionCommand}" Width="75" Height="40" Margin="0,0,0,-100" Style="{StaticResource ButtonTheme}">Add</Button>
     </Grid>
 </UserControl>

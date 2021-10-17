@@ -40,6 +40,8 @@
                              Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding TransactionsViewCommand}"/>
                 <RadioButton x:Name="AddTransactionRadioButton" Content="Add Transaction" Height="50"
                              Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding AddTransactionViewCommand}"/>
+                <RadioButton x:Name="GenerateInvoiceRadioButton" Content="Generate Invoice" Height="50"
+                             Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding GenerateInvoiceViewCommand}"/>
                 <RadioButton x:Name="AboutRadioButton" Content="About" Height="50"
                              Foreground="White" FontSize="14" Style="{StaticResource MenuButtonTheme}" Command="{Binding AboutViewCommand}"/>
             </StackPanel>

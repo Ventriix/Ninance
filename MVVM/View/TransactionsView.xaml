@@ -10,6 +10,7 @@
     <UserControl.Resources>
         <util:UnixToDateTimeConverter x:Key="UnixToDateTime"/>
         <util:BoolToStringConverter x:Key="BoolToString" ValueIfFalse="-" ValueIfTrue="+"/>
+        <util:AmountVatConverter x:Key="VatSubtraction" SubtractOrAdd="Subtract"/>
     </UserControl.Resources>
     <Grid>
         <ListView util:GridViewSort.AutoSort="True" Background="#272537" AlternationCount="2" ItemContainerStyle="{StaticResource TransactionListItemTheme}" Style="{StaticResource TransactionListTheme}" ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}">
@@ -26,15 +27,15 @@
                             </MultiBinding>
                         </GridViewColumn.DisplayMemberBinding>
                     </GridViewColumn>
-                    <GridViewColumn Header="Amount excl. VAT" Width="100" util:GridViewSort.PropertyName="Amount">
+                    <GridViewColumn Header="Amount excl. VAT" Width="100" util:GridViewSort.PropertyName="AmountExclTax">
                         <GridViewColumn.DisplayMemberBinding>
                             <MultiBinding StringFormat="{}{0}{1:c}">
                                 <Binding Path="PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
-                                <Binding Path="Amount"/>
+                                <Binding Path="AmountExclTax"/>
                             </MultiBinding>
                         </GridViewColumn.DisplayMemberBinding>
                     </GridViewColumn>
-                    <GridViewColumn Header="VAT" Width="75" util:GridViewSort.PropertyName="Tax"/>
+                    <GridViewColumn Header="VAT" Width="35" DisplayMemberBinding="{Binding Tax, StringFormat='{}{0}%'}" util:GridViewSort.PropertyName="Tax"/>
                     <GridViewColumn Header="Manage" Width="Auto">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

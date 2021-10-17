@@ -9,11 +9,13 @@ namespace Ninance_v2.MVVM.ViewModel
         public RelayCommand TransactionsViewCommand { get; set; }
         public RelayCommand AboutViewCommand { get; set; }
         public RelayCommand AddTransactionViewCommand { get; set; }
+        public RelayCommand GenerateInvoiceViewCommand { get; set; }
 
         public HomeViewModel HomeVM { get; set; }
         public TransactionsViewModel TransactionsVM { get; set; }
         public AboutViewModel AboutVM { get; set; }
         public AddTransactionViewModel AddTransactionVM { get; set; }
+        public GenerateInvoiceViewModel GenerateInvoiceVM { get; set; }
 
         private object _currentView;
 
@@ -36,6 +38,7 @@ namespace Ninance_v2.MVVM.ViewModel
             TransactionsVM = new TransactionsViewModel();
             AboutVM = new AboutViewModel();
             AddTransactionVM = new AddTransactionViewModel();
+            GenerateInvoiceVM = new GenerateInvoiceViewModel();
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -57,6 +60,11 @@ namespace Ninance_v2.MVVM.ViewModel
             {
                 CurrentView = AddTransactionVM;
             });
+
+            GenerateInvoiceViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = GenerateInvoiceVM;
+            });
         }
 
         public void SearchTransaction(string usage)
@@ -71,6 +79,7 @@ namespace Ninance_v2.MVVM.ViewModel
                     ((MainWindow)App.Current.MainWindow).TransactionsRadioButton.IsChecked = true;
                     ((MainWindow)App.Current.MainWindow).AddTransactionRadioButton.IsChecked = false;
                     ((MainWindow)App.Current.MainWindow).AboutRadioButton.IsChecked = false;
+                    ((MainWindow)App.Current.MainWindow).GenerateInvoiceRadioButton.IsChecked = false;
                 }
 
                 TransactionsVM.TransactionsView.Filter = new Predicate<object>(transaction => { return usage == null || (transaction as CsvTransaction).Usage.IndexOf(usage, StringComparison.OrdinalIgnoreCase) != -1; });

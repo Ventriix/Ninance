@@ -7,7 +7,7 @@
                     <Border CornerRadius="10" Background="#353340" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
-                            <TextBox MaxLines="{TemplateBinding MaxLines}" MaxLength="{TemplateBinding MaxLength}" Margin="1" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" VerticalContentAlignment="Center" Background="Transparent" Padding="5" Foreground="#CFCFCF" x:Name="TransactionTextBox"/>
+                            <TextBox AcceptsReturn="True" MinLines="{TemplateBinding MinLines}" MaxLines="{TemplateBinding MaxLines}" MaxLength="{TemplateBinding MaxLength}" Margin="1" Text="{Binding Text, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" BorderThickness="0" VerticalContentAlignment="Center" Background="Transparent" Padding="5" Foreground="#CFCFCF" x:Name="TransactionTextBox"/>
                             <TextBlock IsHitTestVisible="False" Text="{TemplateBinding Tag}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" FontSize="11" Foreground="DarkGray" Grid.Column="1">
                                 <TextBlock.Style>
                                     <Style TargetType="{x:Type TextBlock}">

@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="Theme/TransactionListTheme.xaml"/>
                 <ResourceDictionary Source="Theme/ButtonTheme.xaml"/>
                 <ResourceDictionary Source="Theme/AddTransactionBoxTheme.xaml"/>
+                <ResourceDictionary Source="Theme/InvoiceProfileComboBoxTheme.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
@@ -25,6 +26,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:AddTransactionViewModel}">
                 <view:AddTransactionView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:GenerateInvoiceViewModel}">
+                <view:GenerateInvoiceView/>
             </DataTemplate>
             <Style x:Key="WindowFontStyle" TargetType="{x:Type Window}">
                 <Setter Property="FontFamily" Value="/Fonts/#Glory"/>

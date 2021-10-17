@@ -1,4 +1,5 @@
 ﻿using Ninance_v2.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;

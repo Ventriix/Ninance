@@ -21,10 +21,26 @@ namespace Ninance_v2.MVVM.ViewModel
             set { _amountText = value; OnPropertyChanged(); }
         }
 
+        private string _vatText;
+        public string VatText
+        {
+            get { return _vatText; }
+            set { _vatText = value; OnPropertyChanged(); }
+        }
+
+        private bool _amountIncludesVatBool = true;
+        public bool AmountIncludesVatBool
+        {
+            get { return _amountIncludesVatBool; }
+            set { _amountIncludesVatBool = value; OnPropertyChanged(); }
+        }
+
         public AddTransactionViewModel()
         {
             AddTransactionCommand = new RelayCommand(o => {
                 double parsedAmount = 00.00;
+                double parsedVat = 0.00;
+                bool direction = AmountText.StartsWith("+");
 
                 if (UsageText == null || AmountText == null)
                     return;
@@ -35,9 +51,13 @@ namespace Ninance_v2.MVVM.ViewModel
                 if (!double.TryParse(AmountText.Substring(1), out parsedAmount))
                     return;
 
-                App.TransactionHandler.AddTransaction(parsedAmount, 0, AmountText.StartsWith("+"), UsageText);
+                if (!double.TryParse(VatText.Replace("%", ""), out parsedVat))
+                    return;
+
+                App.TransactionHandler.AddTransaction(AmountIncludesVatBool ? parsedAmount : (direction ? parsedAmount - (parsedAmount * (parsedVat / 100)) : parsedAmount + (parsedAmount * (parsedVat / 100))), AmountIncludesVatBool ? (direction ? parsedAmount - (parsedAmount * (parsedVat / 100)) : parsedAmount - (parsedAmount * (parsedVat / 100))) : parsedAmount,parsedVat, direction, UsageText);
                 UsageText = "";
                 AmountText = "";
+                VatText = "";
 
                 MainWindow mainWindow = new MainWindow();
                 App.Current.MainWindow.Close();

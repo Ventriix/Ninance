@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Ninance_v2.MVVM.View.GenerateInvoiceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
+             xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModel:GenerateInvoiceViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid x:Name="GenerateInvoicePartOne" Visibility="{Binding IsPartOneVisible}" IsHitTestVisible="{Binding IsPartOneVisible}">
+            <TextBlock Text="Generate Invoice" FontSize="34" Foreground="White" TextAlignment="Center" Width="250" Height="50" Margin="0,0,0,350"/>
+            <ComboBox Text="Buyer Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,225" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <ComboBox Text="Seller Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,100" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <TextBox MaxLength="160" MaxLines="4" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Comment" Width="200" Height="75" Margin="-500,0,0,200" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Invoice Number" Width="100" Height="25" Margin="-150,0,0,250" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Order Number" Width="100" Height="25" Margin="-150,0,0,150" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Issue Date" Width="100" Height="25" Margin="100,0,0,250" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Due Date" Width="100" Height="25" Margin="100,0,0,150" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Address" Width="200" Height="75" Margin="-500,0,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Address" Width="200" Height="75" Margin="-500,0,-450,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Shipping Address" Width="200" Height="75" Margin="0,0,50,-200" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller VAT Registration Number" Width="200" Height="25" Margin="0,0,500,-150" Style="{StaticResource AddTransactionBox}"/>
+            <Button Content="Continue" Height="50" Width="150" Margin="400,0,0,-225" Style="{StaticResource ButtonTheme}"/>
+            <Button Content="Save seller as profile" Height="25" Width="150" Margin="400,0,0,-125" Style="{StaticResource ButtonTheme}"/>
+            <Button Content="Save buyer as profile" Height="25" Width="150" Margin="400,0,0,-50" Style="{StaticResource ButtonTheme}"/>
+        </Grid>
+        <Grid x:Name="GenerateInvoicePartTwo" Visibility="{Binding IsPartTwoVisible}" IsHitTestVisible="{Binding IsPartTwoVisible}">
+
+        </Grid>
+    </Grid>
+</UserControl>

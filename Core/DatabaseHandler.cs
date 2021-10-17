@@ -61,7 +61,7 @@ namespace Ninance_v2.Core
 
                         foreach(V1CsvTransaction v1CsvTransaction in csvReader.GetRecords<V1CsvTransaction>())
                         {
-                            CsvTransaction convertedCsvTransaction = new CsvTransaction(id, v1CsvTransaction.timestamp, v1CsvTransaction.amount, v1CsvTransaction.direction, v1CsvTransaction.usage);
+                            CsvTransaction convertedCsvTransaction = new CsvTransaction(id, v1CsvTransaction.timestamp, v1CsvTransaction.amount, 0.00, v1CsvTransaction.direction, v1CsvTransaction.usage);
                             csvWriter.WriteRecord(convertedCsvTransaction);
                             csvWriter.NextRecord();
 
