@@ -11,24 +11,40 @@
         <viewModel:GenerateInvoiceViewModel/>
     </UserControl.DataContext>
     <Grid>
-        <Grid x:Name="GenerateInvoicePartOne" Visibility="{Binding IsPartOneVisible}" IsHitTestVisible="{Binding IsPartOneVisible}">
-            <TextBlock Text="Generate Invoice" FontSize="34" Foreground="White" TextAlignment="Center" Width="250" Height="50" Margin="0,0,0,350"/>
-            <ComboBox Text="Buyer Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,225" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
-            <ComboBox Text="Seller Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,100" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
-            <TextBox MaxLength="160" MaxLines="4" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Comment" Width="200" Height="75" Margin="-500,0,0,200" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Invoice Number" Width="100" Height="25" Margin="-150,0,0,250" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Order Number" Width="100" Height="25" Margin="-150,0,0,150" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Issue Date" Width="100" Height="25" Margin="100,0,0,250" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="20" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Due Date" Width="100" Height="25" Margin="100,0,0,150" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Address" Width="200" Height="75" Margin="-500,0,0,0" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Address" Width="200" Height="75" Margin="-500,0,-450,0" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="240" MaxLines="6" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Shipping Address" Width="200" Height="75" Margin="0,0,50,-200" Style="{StaticResource AddTransactionBox}"/>
-            <TextBox MaxLength="40" MaxLines="1" Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller VAT Registration Number" Width="200" Height="25" Margin="0,0,500,-150" Style="{StaticResource AddTransactionBox}"/>
-            <Button Content="Continue" Height="50" Width="150" Margin="400,0,0,-225" Style="{StaticResource ButtonTheme}"/>
-            <Button Content="Save seller as profile" Height="25" Width="150" Margin="400,0,0,-125" Style="{StaticResource ButtonTheme}"/>
-            <Button Content="Save buyer as profile" Height="25" Width="150" Margin="400,0,0,-50" Style="{StaticResource ButtonTheme}"/>
+        <TextBlock Text="Generate Invoice" FontSize="34" Foreground="White" TextAlignment="Center" Width="250" Height="50" Margin="0,0,0,400"/>
+        <Grid x:Name="GenerateInvoicePartOne" Visibility="{Binding IsPartOneVisible}" Margin="65,-60,10,0">
+            <ComboBox Tag="Buyer Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,225" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <ComboBox Tag="Seller Profile" ItemsSource="{Binding Profiles}" Margin="400,0,0,100" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <TextBox MaxLength="160" MaxLines="4" Text="{Binding CommentText, UpdateSourceTrigger=PropertyChanged}" Tag="Comment" Width="200" Height="75" Margin="-500,0,0,200" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding InvoiceNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Invoice Number" Width="100" Height="25" Margin="-150,0,0,250" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding OrderNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Order Number" Width="100" Height="25" Margin="-150,0,0,150" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding IssueDateText, UpdateSourceTrigger=PropertyChanged}" Tag="Issue Date" Width="100" Height="25" Margin="100,0,0,250" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding DueDateText, UpdateSourceTrigger=PropertyChanged}" Tag="Due Date" Width="100" Height="25" Margin="100,0,0,150" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerFullNameText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Full Name" Width="200" Height="25" Margin="-500,0,0,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerCompanyNameText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Company Name (optional)" Width="200" Height="25" Margin="-500,25,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerStreetText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Street" Width="200" Height="25" Margin="-500,150,0,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="10" MaxLines="1" Text="{Binding SellerPostcodeText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Postcode" Width="95" Height="25" Margin="-500,225,105,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding SellerStateText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller State" Width="95" Height="25" Margin="-500,225,-105,50" Style="{StaticResource AddTransactionBox}"/>
+            <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding SellerCountry, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Country" Width="95" Height="25" Margin="-500,300,105,50" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerCityText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller City" Width="95" Height="25" Margin="-500,300,-105,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerEmailText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Email" Width="200" Height="25" Margin="-500,325,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerPhoneNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller Phone Number" Width="200" Height="25" Margin="-500,400,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding SellerVatNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Seller VAT Reg Number (optional)" Width="200" Height="25" Margin="-500,475,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerFullNameText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Full Name" Width="200" Height="25" Margin="-50,0,0,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerCompanyNameText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Company Name (optional)" Width="200" Height="25" Margin="-50,25,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerStreetText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Street" Width="200" Height="25" Margin="-50,150,0,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="10" MaxLines="1" Text="{Binding BuyerPostcodeText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Postcode" Width="95" Height="25" Margin="-50,225,105,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="20" MaxLines="1" Text="{Binding BuyerStateText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer State" Width="95" Height="25" Margin="-50,225,-105,50" Style="{StaticResource AddTransactionBox}"/>
+            <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding BuyerCountry, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Country" Width="95" Height="25" Margin="-50,300,105,50" Style="{StaticResource InvoiceProfileComboBoxTheme}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerCityText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer City" Width="95" Height="25" Margin="-50,300,-105,50" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerEmailText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Email" Width="200" Height="25" Margin="-50,325,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerPhoneNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer Phone Number" Width="200" Height="25" Margin="-50,400,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <TextBox MaxLength="40" MaxLines="1" Text="{Binding BuyerVatNumberText, UpdateSourceTrigger=PropertyChanged}" Tag="Buyer VAT Reg Number (optional)" Width="200" Height="25" Margin="-50,475,0,0" Style="{StaticResource AddTransactionBox}"/>
+            <Button Content="Continue" Command="{Binding ContinueToPartTwoCommand}" Height="50" Width="150" Margin="400,0,0,-225" Style="{StaticResource ButtonTheme}"/>
+            <Button Content="Save seller as profile" Command="{Binding SaveSellerProfileCommand}" Height="25" Width="150" Margin="400,0,0,-125" Style="{StaticResource ButtonTheme}"/>
+            <Button Content="Save buyer as profile" Command="{Binding SaveBuyerProfileCommand}" Height="25" Width="150" Margin="400,0,0,-50" Style="{StaticResource ButtonTheme}"/>
         </Grid>
-        <Grid x:Name="GenerateInvoicePartTwo" Visibility="{Binding IsPartTwoVisible}" IsHitTestVisible="{Binding IsPartTwoVisible}">
+        <Grid x:Name="GenerateInvoicePartTwo" Visibility="{Binding IsPartTwoVisible}">
 
         </Grid>
     </Grid>

@@ -46,7 +46,7 @@ namespace Ninance_v2.Core
             public string Postcode { get; set; }
             public string CountryName { get; set; }
             public string CountryCode { get; set; }
-            public object Email { get; set; }
+            public string Email { get; set; }
             public string Phone { get; set; }
         }
 
