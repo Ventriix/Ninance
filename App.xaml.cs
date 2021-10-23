@@ -12,6 +12,7 @@ namespace Ninance_v2
     {
         public static TransactionHandler TransactionHandler;
         public static DatabaseHandler DatabaseHandler;
+        public static InvoiceProfileHandler InvoiceProfileHandler;
 
         /**
          * TODO: CompanySync, monthly cost automation, invoice generation, Updater
@@ -21,6 +22,7 @@ namespace Ninance_v2
         {
             TransactionHandler = new TransactionHandler();
             DatabaseHandler = new DatabaseHandler();
+            InvoiceProfileHandler = new InvoiceProfileHandler();
         }
 
         protected override void OnStartup(StartupEventArgs e)

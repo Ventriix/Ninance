@@ -1,5 +1,4 @@
-﻿using Ninance_v2.Core;
-using s2industries.ZUGFeRD;
+﻿using s2industries.ZUGFeRD;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +10,7 @@ using QuestPDF.Fluent;
 using PdfSharp.Pdf;
 using PdfSharp.Pdf.IO;
 using Spire.Pdf.Conversion;
+using System.Xml.Serialization;
 
 namespace Ninance_v2.Core
 {
@@ -36,6 +36,7 @@ namespace Ninance_v2.Core
             public int Quantity { get; set; }
         }
 
+        [XmlType("Address")]
         public class Address
         {
             public string PersonName { get; set; }
@@ -48,6 +49,12 @@ namespace Ninance_v2.Core
             public string CountryCode { get; set; }
             public string Email { get; set; }
             public string Phone { get; set; }
+
+            [XmlIgnore]
+            public bool IsValid
+            {
+                get { return PersonName != null && Street != null && City != null && State != null && Postcode != null && CountryName != null & CountryCode != null && Email != null && Phone != null; }
+            }
         }
 
         public static class InvoiceDocumentDataSource
@@ -85,7 +92,7 @@ namespace Ninance_v2.Core
                 };
             }
 
-            private static Address GenerateRandomAddress()
+            public static Address GenerateRandomAddress()
             {
                 return new Address
                 {

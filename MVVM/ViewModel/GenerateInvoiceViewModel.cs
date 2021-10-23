@@ -1,10 +1,12 @@
 ﻿using Ninance_v2.Core;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 using static Ninance_v2.Core.InvoiceGenerator;
 
 namespace Ninance_v2.MVVM.ViewModel
@@ -26,26 +28,9 @@ namespace Ninance_v2.MVVM.ViewModel
 
     class GenerateInvoiceViewModel : ObservableObject
     {
-        public class InvoiceAddressProfile
-        {
-            public string DisplayName
-            {
-                get
-                {
-                    return Address.CompanyName == "" ? Address.PersonName + ", " + Address.Street + ", " + Address.State + ", " + Address.Postcode + " " + Address.City + ", " + Address.CountryName + ", " + Address.Email + ", " + Address.Phone : Address.CompanyName + ", " + Address.PersonName + ", " + Address.Street + ", " + Address.State + ", " + Address.Postcode + " " + Address.City + ", " + Address.CountryName + ", " + Address.Email + ", " + Address.Phone;
-                }
-            }
 
-            public Address Address;
-
-            public InvoiceAddressProfile(Address Address)
-            {
-                this.Address = Address;
-            }
-        }
-
-        private ObservableCollection<InvoiceAddressProfile> _profiles;
-        public ObservableCollection<InvoiceAddressProfile> Profiles
+        private List<InvoiceProfile> _profiles;
+        public List<InvoiceProfile> Profiles
         {
             get { return _profiles; }
             set { _profiles = value; OnPropertyChanged(); }
@@ -226,18 +211,18 @@ namespace Ninance_v2.MVVM.ViewModel
             set { _buyerVatNumberText = value; OnPropertyChanged(); }
         }
 
-        private ComboBoxItem _sellerCountry;
-        public ComboBoxItem SellerCountry
+        private int _sellerCountryIndex;
+        public int SellerCountryIndex
         {
-            get { return _sellerCountry; }
-            set { _sellerCountry = value; OnPropertyChanged(); }
+            get { return _sellerCountryIndex; }
+            set { _sellerCountryIndex = value; OnPropertyChanged(); }
         }
 
-        private ComboBoxItem _buyerCountry;
-        public ComboBoxItem BuyerCountry
+        private int _buyerCountryIndex;
+        public int BuyerCountryIndex
         {
-            get { return _buyerCountry; }
-            set { _buyerCountry = value; OnPropertyChanged(); }
+            get { return _buyerCountryIndex; }
+            set { _buyerCountryIndex = value; OnPropertyChanged(); }
         }
 
         private ObservableCollection<Country> _countries;
@@ -277,28 +262,31 @@ namespace Ninance_v2.MVVM.ViewModel
 
         public GenerateInvoiceViewModel()
         {
-            Profiles = new ObservableCollection<InvoiceAddressProfile>();
+            Profiles = App.InvoiceProfileHandler.ListProfiles();
             Countries = new ObservableCollection<Country>();
 
-            SaveSellerProfileCommand = new RelayCommand(o => { Address address = GetAddress(0); if (address == null) return; SaveProfile(address); });
-            SaveBuyerProfileCommand = new RelayCommand(o => { Address address = GetAddress(1); if (address == null) return; SaveProfile(address); });
+            SaveSellerProfileCommand = new RelayCommand(o => { Address address = GetAddress(0); if (!address.IsValid) return; SaveProfile(address); });
+            SaveBuyerProfileCommand = new RelayCommand(o => { Address address = GetAddress(1); if (!address.IsValid) return; SaveProfile(address); });
             ContinueToPartTwoCommand = new RelayCommand(o => { IsPartOneVisible = Visibility.Hidden; IsPartTwoVisible = Visibility.Visible; });
 
-            var xmlDocument = XDocument.Load(AppDomain.CurrentDomain.BaseDirectory + "Data\\countries.xml");
+            var xmlDocument = XDocument.Load("Data/countries.xml");
             var xmlCountries = xmlDocument.Element("countries").Elements();
 
             foreach(var child in xmlCountries)
                 Countries.Add(new Country(child.Value, child.Attributes().ElementAt(0).Value));
+
+            App.InvoiceProfileHandler.SaveProfile(InvoiceDocumentDataSource.GenerateRandomAddress(), "Test");
         }
 
         private Address GetAddress(int type)
         {
-            return new Address() { };
+            return type == 0 ? new Address() { CountryName = Countries[SellerCountryIndex].Name, CountryCode = Countries[SellerCountryIndex].Code, CompanyName = SellerCompanyNameText, City = SellerCityText, Email = SellerEmailText, PersonName = SellerFullNameText, Phone = SellerPhoneNumberText, Postcode = SellerPostcodeText, State = SellerStateText, Street = SellerStreetText }
+            : new Address() { CountryName = Countries[BuyerCountryIndex].Name, CountryCode = Countries[BuyerCountryIndex].Code, CompanyName = BuyerCompanyNameText, City = BuyerCityText, Email = BuyerEmailText, PersonName = BuyerFullNameText, Phone = BuyerPhoneNumberText, Postcode = BuyerPostcodeText, State = BuyerStateText, Street = BuyerStreetText };
         }
 
         private void SaveProfile(Address address)
         {
-
+            
         }
     }
 }

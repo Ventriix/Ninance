@@ -181,6 +181,7 @@
     <Compile Include="Core\DatabaseHandler.cs" />
     <Compile Include="Core\GridViewSort.cs" />
     <Compile Include="Core\InvoiceGenerator.cs" />
+    <Compile Include="Core\InvoiceProfileHandler.cs" />
     <Compile Include="Core\ObservableObject.cs" />
     <Compile Include="Core\RelayCommand.cs" />
     <Compile Include="Core\TransactionHandler.cs" />
@@ -312,9 +313,9 @@
     <Resource Include="Ninance Logo.ico" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Data\countries.xml">
+    <AdditionalFiles Include="Data\countries.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </AdditionalFiles>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\GrapeCity.Documents.Html.4.2.0.719\build\GrapeCity.Documents.Html.targets" Condition="Exists('packages\GrapeCity.Documents.Html.4.2.0.719\build\GrapeCity.Documents.Html.targets')" />
