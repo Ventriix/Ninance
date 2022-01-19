@@ -260,13 +260,27 @@ namespace Ninance_v2.MVVM.ViewModel
             set { _backToPreviousPartCommand = value; OnPropertyChanged(); }
         }
 
+        private RelayCommand _buyerProfileSelectionChangedCommand;
+        public RelayCommand BuyerProfileSelectionChangedCommand
+        {
+            get { return _buyerProfileSelectionChangedCommand; }
+            set { _buyerProfileSelectionChangedCommand = value; OnPropertyChanged(); }
+        }
+
+        private RelayCommand _sellerProfileSelectionChangedCommand;
+        public RelayCommand SellerProfileSelectionChangedCommand
+        {
+            get { return _sellerProfileSelectionChangedCommand; }
+            set { _sellerProfileSelectionChangedCommand = value; OnPropertyChanged(); }
+        }
+
         public GenerateInvoiceViewModel()
         {
             Profiles = App.InvoiceProfileHandler.ListProfiles();
             Countries = new ObservableCollection<Country>();
 
-            SaveSellerProfileCommand = new RelayCommand(o => { Address address = GetAddress(0); if (!address.IsValid) return; SaveProfile(address); });
-            SaveBuyerProfileCommand = new RelayCommand(o => { Address address = GetAddress(1); if (!address.IsValid) return; SaveProfile(address); });
+            SaveSellerProfileCommand = new RelayCommand(o => { Address address = GetAddress(0); if (address == null || !address.IsValid) return; App.InvoiceProfileHandler.SaveProfile(address, SellerVatNumberText); Profiles = App.InvoiceProfileHandler.ListProfiles(); });
+            SaveBuyerProfileCommand = new RelayCommand(o => { Address address = GetAddress(1); if (address == null || !address.IsValid) return; App.InvoiceProfileHandler.SaveProfile(address, BuyerVatNumberText); Profiles = App.InvoiceProfileHandler.ListProfiles(); });
             ContinueToPartTwoCommand = new RelayCommand(o => { IsPartOneVisible = Visibility.Hidden; IsPartTwoVisible = Visibility.Visible; });
 
             var xmlDocument = XDocument.Load("Data/countries.xml");
@@ -280,13 +294,15 @@ namespace Ninance_v2.MVVM.ViewModel
 
         private Address GetAddress(int type)
         {
-            return type == 0 ? new Address() { CountryName = Countries[SellerCountryIndex].Name, CountryCode = Countries[SellerCountryIndex].Code, CompanyName = SellerCompanyNameText, City = SellerCityText, Email = SellerEmailText, PersonName = SellerFullNameText, Phone = SellerPhoneNumberText, Postcode = SellerPostcodeText, State = SellerStateText, Street = SellerStreetText }
-            : new Address() { CountryName = Countries[BuyerCountryIndex].Name, CountryCode = Countries[BuyerCountryIndex].Code, CompanyName = BuyerCompanyNameText, City = BuyerCityText, Email = BuyerEmailText, PersonName = BuyerFullNameText, Phone = BuyerPhoneNumberText, Postcode = BuyerPostcodeText, State = BuyerStateText, Street = BuyerStreetText };
-        }
-
-        private void SaveProfile(Address address)
-        {
-            
+            try
+            {
+                return type == 0 ? new Address() { CountryName = Countries[SellerCountryIndex].Name, CountryCode = Countries[SellerCountryIndex].Code, CompanyName = SellerCompanyNameText, City = SellerCityText, Email = SellerEmailText, PersonName = SellerFullNameText, Phone = SellerPhoneNumberText, Postcode = SellerPostcodeText, State = SellerStateText, Street = SellerStreetText }
+                : new Address() { CountryName = Countries[BuyerCountryIndex].Name, CountryCode = Countries[BuyerCountryIndex].Code, CompanyName = BuyerCompanyNameText, City = BuyerCityText, Email = BuyerEmailText, PersonName = BuyerFullNameText, Phone = BuyerPhoneNumberText, Postcode = BuyerPostcodeText, State = BuyerStateText, Street = BuyerStreetText };
+            }
+            catch(Exception ignored)
+            {
+                return null;
+            }
         }
     }
 }
