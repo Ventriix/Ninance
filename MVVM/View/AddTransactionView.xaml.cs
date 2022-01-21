@@ -18,7 +18,7 @@ namespace Ninance_v2.MVVM.View
     /// <summary>
     /// Interaction logic for AddTransactionView.xaml
     /// </summary>
-    public partial class AddTransactionView : UserControl
+    public partial class AddTransactionView : Page
     {
         public AddTransactionView()
         {

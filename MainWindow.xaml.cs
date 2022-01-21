@@ -1,7 +1,4 @@
-﻿using Ninance_v2.Core;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace Ninance_v2
 {
@@ -11,19 +8,14 @@ namespace Ninance_v2
         public MainWindow()
         {
             InitializeComponent();
-            PreviewKeyDown += new KeyEventHandler(HandleEscape);
+
+            WPFUI.Theme.Manager.Switch(WPFUI.Theme.Manager.GetSystemTheme());
+            WPFUI.Background.Manager.Apply(this);
         }
 
-        protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+        private void RootNavigation_OnLoaded(object sender, RoutedEventArgs e)
         {
-            base.OnMouseLeftButtonDown(e);
-            DragMove();
-        }
-
-        private void HandleEscape(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Escape)
-                Close();
+            RootNavigation.Navigate("dashboard");
         }
     }
 }

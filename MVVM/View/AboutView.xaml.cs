@@ -18,7 +18,7 @@ namespace Ninance_v2.MVVM.View
     /// <summary>
     /// Interaction logic for AboutView.xaml
     /// </summary>
-    public partial class AboutView : UserControl
+    public partial class AboutView : Page
     {
         public AboutView()
         {

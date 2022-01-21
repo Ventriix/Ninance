@@ -1,37 +1,75 @@
-﻿<UserControl x:Class="Ninance_v2.MVVM.View.TransactionsView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
-             xmlns:util="clr-namespace:Ninance_v2.Core"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <util:UnixToDateTimeConverter x:Key="UnixToDateTime"/>
-        <util:BoolToStringConverter x:Key="BoolToString" ValueIfFalse="-" ValueIfTrue="+"/>
-    </UserControl.Resources>
+﻿<Page
+    x:Class="Ninance_v2.MVVM.View.TransactionsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:util="clr-namespace:Ninance_v2.Core"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Style="{StaticResource UiPageScrollable}"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <util:UnixToDateTimeConverter x:Key="UnixToDateTime" />
+        <util:BoolToStringConverter
+            x:Key="BoolToString"
+            ValueIfFalse="-"
+            ValueIfTrue="+" />
+    </Page.Resources>
     <Grid>
-        <ListView util:GridViewSort.AutoSort="True" Background="#272537" AlternationCount="2" ItemContainerStyle="{StaticResource TransactionListItemTheme}" Style="{StaticResource TransactionListTheme}" ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}">
+        <ListView
+            util:GridViewSort.AutoSort="True"
+            AlternationCount="2"
+            Background="#272537"
+            ItemContainerStyle="{StaticResource TransactionListItemTheme}"
+            ItemsSource="{Binding Transactions, UpdateSourceTrigger=PropertyChanged}"
+            Style="{StaticResource TransactionListTheme}">
             <ListView.View>
                 <GridView ColumnHeaderContainerStyle="{StaticResource TransactionListHeaderTheme}">
-                    <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding Id}" util:GridViewSort.PropertyName="Id"/>
-                    <GridViewColumn Header="Usage" Width="300" DisplayMemberBinding="{Binding Usage}"/>
-                    <GridViewColumn Header="Date" Width="100" DisplayMemberBinding="{Binding Timestamp, ConverterCulture='de-DE', Converter={StaticResource UnixToDateTime}, StringFormat={}{0:dd.MM.yyyy HH:mm}}" util:GridViewSort.PropertyName="Id"/>
-                    <GridViewColumn Header="Amount" Width="75" util:GridViewSort.PropertyName="Amount">
+                    <GridViewColumn
+                        Width="50"
+                        util:GridViewSort.PropertyName="Id"
+                        DisplayMemberBinding="{Binding Id}"
+                        Header="Id" />
+                    <GridViewColumn
+                        Width="300"
+                        DisplayMemberBinding="{Binding Usage}"
+                        Header="Usage" />
+                    <GridViewColumn
+                        Width="100"
+                        util:GridViewSort.PropertyName="Id"
+                        DisplayMemberBinding="{Binding Timestamp, ConverterCulture='de-DE', Converter={StaticResource UnixToDateTime}, StringFormat={}{0:dd.MM.yyyy HH:mm}}"
+                        Header="Date" />
+                    <GridViewColumn
+                        Width="75"
+                        util:GridViewSort.PropertyName="Amount"
+                        Header="Amount">
                         <GridViewColumn.DisplayMemberBinding>
                             <MultiBinding StringFormat="{}{0}{1:c}">
-                                <Binding Path="PlusOrMinus" ConverterCulture='de-DE' Converter="{StaticResource BoolToString}"/>
-                                <Binding Path="Amount"/>
+                                <Binding
+                                    Converter="{StaticResource BoolToString}"
+                                    ConverterCulture="de-DE"
+                                    Path="PlusOrMinus" />
+                                <Binding Path="Amount" />
                             </MultiBinding>
                         </GridViewColumn.DisplayMemberBinding>
                     </GridViewColumn>
-                    <GridViewColumn Header="Manage" Width="Auto">
+                    <GridViewColumn Width="Auto" Header="Manage">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Style="{StaticResource ButtonTheme}" CommandParameter="{Binding Id}" Command="{Binding DataContext.DeleteTransaction, RelativeSource={RelativeSource AncestorType=ListView, Mode=FindAncestor}}" Width="75" Height="25">
+                                <Button
+                                    Width="75"
+                                    Height="25"
+                                    Command="{Binding DataContext.DeleteTransaction, RelativeSource={RelativeSource AncestorType=ListView, Mode=FindAncestor}}"
+                                    CommandParameter="{Binding Id}"
+                                    Style="{StaticResource ButtonTheme}">
                                     <Button.Content>
-                                        <TextBlock Text="Delete" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="Delete" />
                                     </Button.Content>
                                 </Button>
                             </DataTemplate>
@@ -41,4 +79,4 @@
             </ListView.View>
         </ListView>
     </Grid>
-</UserControl>
+</Page>

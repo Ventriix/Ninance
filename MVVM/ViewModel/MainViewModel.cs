@@ -67,10 +67,10 @@ namespace Ninance_v2.MVVM.ViewModel
                 {
                     TransactionsViewCommand.Execute(null);
 
-                    ((MainWindow)App.Current.MainWindow).HomeRadioButton.IsChecked = false;
+                    /*((MainWindow)App.Current.MainWindow).HomeRadioButton.IsChecked = false;
                     ((MainWindow)App.Current.MainWindow).TransactionsRadioButton.IsChecked = true;
                     ((MainWindow)App.Current.MainWindow).AddTransactionRadioButton.IsChecked = false;
-                    ((MainWindow)App.Current.MainWindow).AboutRadioButton.IsChecked = false;
+                    ((MainWindow)App.Current.MainWindow).AboutRadioButton.IsChecked = false;*/
                 }
 
                 TransactionsVM.TransactionsView.Filter = new Predicate<object>(transaction => { return usage == null || (transaction as CsvTransaction).Usage.IndexOf(usage, StringComparison.OrdinalIgnoreCase) != -1; });
