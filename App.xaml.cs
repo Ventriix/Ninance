@@ -12,11 +12,13 @@ namespace Ninance_v2
     {
         public static TransactionHandler TransactionHandler;
         public static DatabaseHandler DatabaseHandler;
+        public static ConfigHandler ConfigHandler;
 
         public App()
         {
             TransactionHandler = new TransactionHandler();
             DatabaseHandler = new DatabaseHandler();
+            ConfigHandler = new ConfigHandler();
         }
 
         protected override void OnStartup(StartupEventArgs e)

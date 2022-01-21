@@ -79,9 +79,9 @@
                         Tag="sched_transactions"
                         Type="{x:Type view:AddTransactionView}" />
                     <wpfui:NavigationItem
-                        Content="Add Transaction"
+                        Content="New Transaction"
                         Icon="AddCircle32"
-                        Tag="add_transaction"
+                        Tag="new_transaction"
                         Type="{x:Type view:AddTransactionView}" />
                 </wpfui:NavigationFluent.Items>
                 <wpfui:NavigationFluent.Footer>

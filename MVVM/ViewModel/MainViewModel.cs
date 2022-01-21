@@ -14,6 +14,7 @@ namespace Ninance_v2.MVVM.ViewModel
         public TransactionsViewModel TransactionsVM { get; set; }
         public AboutViewModel AboutVM { get; set; }
         public AddTransactionViewModel AddTransactionVM { get; set; }
+        public SettingsViewModel SettingsVM { get; set; }
 
         private object _currentView;
 
@@ -36,6 +37,7 @@ namespace Ninance_v2.MVVM.ViewModel
             TransactionsVM = new TransactionsViewModel();
             AboutVM = new AboutViewModel();
             AddTransactionVM = new AddTransactionViewModel();
+            SettingsVM = new SettingsViewModel();
             CurrentView = HomeVM;
 
             HomeViewCommand = new RelayCommand(o =>

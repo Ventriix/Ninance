@@ -44,35 +44,35 @@
             FontSize="12"
             FontWeight="Light"
             Foreground="White"
-            Text="Version: v1.0.0" />
+            Text="Version: v2.0.0" />
         <Button
-            Width="125"
+            Width="150"
             Height="35"
-            Margin="-150,0,0,0"
+            Margin="-175,0,0,0"
             Command="{Binding ImportV2DatabaseCommand}"
             Style="{StaticResource ButtonTheme}">
             Import Database
         </Button>
         <Button
-            Width="125"
+            Width="150"
             Height="35"
-            Margin="-150,100,0,0"
+            Margin="-175,100,0,0"
             Command="{Binding ImportV1DatabaseCommand}"
             Style="{StaticResource ButtonTheme}">
             Import Old Database
         </Button>
         <Button
-            Width="125"
+            Width="150"
             Height="35"
-            Margin="150,0,0,0"
+            Margin="175,0,0,0"
             Command="{Binding ExportDatabaseCommand}"
             Style="{StaticResource ButtonTheme}">
             Export Database
         </Button>
         <Button
-            Width="125"
+            Width="150"
             Height="35"
-            Margin="150,100,0,0"
+            Margin="175,100,0,0"
             Command="{Binding ResetDatabaseCommand}"
             Style="{StaticResource ButtonTheme}">
             Reset Database

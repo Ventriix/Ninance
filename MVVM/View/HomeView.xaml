@@ -27,12 +27,6 @@
         <util:GreaterThanConverter x:Key="LastTransactionCutoff_5" GreaterThanValue="4" />
     </Page.Resources>
     <StackPanel>
-        <TextBlock
-            Margin="0,0,0,20"
-            HorizontalAlignment="Left"
-            FontSize="28"
-            Foreground="White"
-            Text="Home" />
         <StackPanel Margin="0,0,0,10" Orientation="Horizontal">
             <Border Width="400" Height="200">
                 <Border.Background>
@@ -48,29 +42,39 @@
                         Rect="0,0,400,200" />
                 </Border.Clip>
                 <Grid>
-                    <StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="269*" />
+                        <ColumnDefinition Width="131*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.ColumnSpan="2">
                         <TextBlock
                             Margin="20,10,10,0"
-                            FontSize="28"
+                            FontSize="34"
+                            FontWeight="Bold"
                             Foreground="White"
                             Text="Balance" />
                         <TextBlock
                             Margin="20,10,10,0"
                             FontSize="28"
+                            FontWeight="Light"
                             Foreground="White"
                             Text="{Binding Balance, StringFormat={}{0:c}}" />
                     </StackPanel>
                     <Image
-                        Width="250"
-                        Height="250"
-                        Margin="170,0,-20,-90"
-                        HorizontalAlignment="Center"
+                        Grid.ColumnSpan="2"
+                        Width="Auto"
+                        Height="Auto"
+                        Margin="15,15,15,30"
+                        HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
-                        Opacity="0.3"
-                        Source="/Images/DogecoinLogo.png">
+                        Opacity="0.05"
+                        Source="/Images/Currencys.png">
                         <Image.RenderTransform>
                             <TransformGroup>
-                                <RotateTransform Angle="-15" />
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform Angle="-0.535" />
+                                <TranslateTransform />
                             </TransformGroup>
                         </Image.RenderTransform>
                     </Image>
@@ -93,7 +97,7 @@
                 </Border.Style>
                 <Border.Background>
                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Offset="0.0" Color="#ffc554" />
+                        <GradientStop Offset="0.0" Color="#FFFF795B" />
                         <GradientStop Offset="1" Color="#ffb73a" />
                     </LinearGradientBrush>
                 </Border.Background>
@@ -101,6 +105,7 @@
                     <TextBlock
                         Margin="10,10,10,0"
                         FontSize="24"
+                        FontWeight="Bold"
                         Foreground="White"
                         Text="Last Transaction"
                         TextAlignment="Center" />
@@ -116,6 +121,7 @@
                     <TextBlock
                         Margin="10,140,10,0"
                         FontSize="40"
+                        FontWeight="Light"
                         Foreground="White"
                         TextAlignment="Center">
                         <TextBlock.Text>
@@ -159,7 +165,7 @@
                     Width="150"
                     Height="150"
                     Margin="0"
-                    Background="#844eff"
+                    Background="#cb5bff"
                     CornerRadius="10">
                     <Border.Style>
                         <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
@@ -178,6 +184,7 @@
                             Margin="0,10,0,50"
                             VerticalAlignment="Center"
                             FontSize="16"
+                            FontWeight="Bold"
                             Foreground="White"
                             Text="{Binding LastTransactions[1].Usage}"
                             TextAlignment="Center"
@@ -186,6 +193,7 @@
                             Margin="10,100,10,10"
                             VerticalAlignment="Center"
                             FontSize="30"
+                            FontWeight="Light"
                             Foreground="White"
                             TextAlignment="Center">
                             <TextBlock.Text>
@@ -203,7 +211,7 @@
                 <Border
                     Width="150"
                     Height="150"
-                    Background="#4e99ff"
+                    Background="#5bc3ff"
                     CornerRadius="10">
                     <Border.Style>
                         <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
@@ -222,6 +230,7 @@
                             Margin="0,10,0,50"
                             VerticalAlignment="Center"
                             FontSize="16"
+                            FontWeight="Bold"
                             Foreground="White"
                             Text="{Binding LastTransactions[2].Usage}"
                             TextAlignment="Center"
@@ -230,6 +239,7 @@
                             Margin="10,100,10,10"
                             VerticalAlignment="Center"
                             FontSize="30"
+                            FontWeight="Light"
                             Foreground="White"
                             TextAlignment="Center">
                             <TextBlock.Text>
@@ -247,7 +257,7 @@
                 <Border
                     Width="150"
                     Height="150"
-                    Background="#4eff91"
+                    Background="#FF5B7BFF"
                     CornerRadius="10">
                     <Border.Style>
                         <Style BasedOn="{StaticResource {x:Type Border}}" TargetType="{x:Type Border}">
@@ -266,6 +276,7 @@
                             Margin="0,10,0,50"
                             VerticalAlignment="Center"
                             FontSize="16"
+                            FontWeight="Bold"
                             Foreground="White"
                             Text="{Binding LastTransactions[3].Usage}"
                             TextAlignment="Center"
@@ -274,6 +285,7 @@
                             Margin="10,100,10,10"
                             VerticalAlignment="Center"
                             FontSize="30"
+                            FontWeight="Light"
                             Foreground="White"
                             TextAlignment="Center">
                             <TextBlock.Text>
@@ -310,6 +322,7 @@
                             Margin="0,10,0,50"
                             VerticalAlignment="Center"
                             FontSize="16"
+                            FontWeight="Bold"
                             Foreground="White"
                             Text="{Binding LastTransactions[4].Usage}"
                             TextAlignment="Center"
@@ -318,6 +331,7 @@
                             Margin="10,100,10,10"
                             VerticalAlignment="Center"
                             FontSize="30"
+                            FontWeight="Light"
                             Foreground="White"
                             TextAlignment="Center">
                             <TextBlock.Text>
