@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace Ninance_v2.MVVM.ViewModel
 {
-    class HomeViewModel : ObservableObject
+    public class HomeViewModel : ObservableObject
     {
 
         private double _balance = 00.00;

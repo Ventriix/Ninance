@@ -2,44 +2,56 @@
     x:Class="Ninance_v2.MVVM.View.AddTransactionView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:core="clr-namespace:Ninance_v2.Core"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="580"
+    d:DesignWidth="750"
     Style="{StaticResource UiPageScrollable}"
     mc:Ignorable="d">
     <Page.DataContext>
         <viewModel:AddTransactionViewModel />
     </Page.DataContext>
     <Grid>
+        <Label Margin="200,165,0,0" Content="Usage" />
         <TextBox
             Width="350"
-            Height="50"
-            Margin="0,0,0,200"
+            Height="35"
+            Margin="0,0,0,175"
             MaxLength="40"
             MaxLines="1"
-            Style="{StaticResource AddTransactionBox}"
-            Tag="Usage"
             Text="{Binding UsageText, UpdateSourceTrigger=PropertyChanged}" />
-        <TextBox
-            Width="350"
-            Height="50"
-            Margin="0,0,0,50"
+        <ComboBox
+            Width="50"
+            Height="Auto"
+            Margin="0,0,300,50"
+            SelectedIndex="{Binding SelectedPlusMinusIndex, UpdateSourceTrigger=PropertyChanged}">
+            <ComboBoxItem Content="+" IsSelected="True" />
+            <ComboBoxItem Content="-" IsSelected="False" />
+        </ComboBox>
+        <wpfui:NumberBox
+            Width="275"
+            Height="35"
+            Margin="75,0,0,50"
+            ControlsVisible="True"
+            DecimalPlaces="2"
+            IntegersOnly="False"
+            Mask="(***) *** - ****"
             MaxLength="10"
             MaxLines="1"
-            Style="{StaticResource AddTransactionBox}"
-            Tag="Amount of money (ex. -24,99)"
-            Text="{Binding AmountText, UpdateSourceTrigger=PropertyChanged}" />
-        <Button
-            Width="75"
-            Height="40"
+            Placeholder="Amount of money (ex. 24.99)"
+            Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" />
+        <wpfui:Button
+            Width="125"
+            Height="Auto"
             Margin="0,0,0,-100"
+            Appearance="Primary"
             Command="{Binding AddTransactionCommand}"
-            Style="{StaticResource ButtonTheme}">
+            Icon="Add16">
             Add
-        </Button>
+        </wpfui:Button>
     </Grid>
 </Page>

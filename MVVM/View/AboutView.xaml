@@ -7,8 +7,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
+    d:DesignHeight="580"
+    d:DesignWidth="750"
+    Style="{StaticResource UiPageScrollable}"
     mc:Ignorable="d">
     <Page.DataContext>
         <viewModel:AboutViewModel />
@@ -31,51 +32,19 @@
             Foreground="White"
             Text="Second Edition" />
         <TextBlock
-            Margin="0,0,0,150"
+            Margin="0,0,0,50"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="16"
             Foreground="White"
             Text="Developed for personal usage." />
         <TextBlock
-            Margin="0,0,0,110"
+            Margin="0,0,0,0"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             FontSize="12"
             FontWeight="Light"
             Foreground="White"
             Text="Version: v2.0.0" />
-        <Button
-            Width="150"
-            Height="35"
-            Margin="-175,0,0,0"
-            Command="{Binding ImportV2DatabaseCommand}"
-            Style="{StaticResource ButtonTheme}">
-            Import Database
-        </Button>
-        <Button
-            Width="150"
-            Height="35"
-            Margin="-175,100,0,0"
-            Command="{Binding ImportV1DatabaseCommand}"
-            Style="{StaticResource ButtonTheme}">
-            Import Old Database
-        </Button>
-        <Button
-            Width="150"
-            Height="35"
-            Margin="175,0,0,0"
-            Command="{Binding ExportDatabaseCommand}"
-            Style="{StaticResource ButtonTheme}">
-            Export Database
-        </Button>
-        <Button
-            Width="150"
-            Height="35"
-            Margin="175,100,0,0"
-            Command="{Binding ResetDatabaseCommand}"
-            Style="{StaticResource ButtonTheme}">
-            Reset Database
-        </Button>
     </Grid>
 </Page>

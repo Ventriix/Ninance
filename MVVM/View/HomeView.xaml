@@ -8,8 +8,8 @@
     xmlns:util="clr-namespace:Ninance_v2.Core"
     xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
     xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
-    d:DesignHeight="460"
-    d:DesignWidth="800"
+    d:DesignHeight="580"
+    d:DesignWidth="750"
     Style="{StaticResource UiPageScrollable}"
     mc:Ignorable="d">
     <Page.DataContext>
@@ -58,7 +58,7 @@
                             FontSize="28"
                             FontWeight="Light"
                             Foreground="White"
-                            Text="{Binding Balance, StringFormat={}{0:c}}" />
+                            Text="{Binding Balance, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:c}}" />
                     </StackPanel>
                     <Image
                         Grid.ColumnSpan="2"
@@ -68,16 +68,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Opacity="0.05"
-                        Source="/Images/Currencys.png">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform />
-                                <SkewTransform />
-                                <RotateTransform Angle="-0.535" />
-                                <TranslateTransform />
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
+                        Source="/Images/Currencys.png" />
                 </Grid>
             </Border>
             <Border
@@ -147,6 +138,7 @@
                 Margin="0,0,0,10"
                 HorizontalAlignment="Left"
                 FontSize="20"
+                FontWeight="DemiBold"
                 Foreground="White"
                 Text="Recent Transactions">
                 <TextBlock.Style>

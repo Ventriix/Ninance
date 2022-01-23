@@ -1,4 +1,5 @@
 ﻿using Ninance_v2.Core;
+using Ninance_v2.MVVM.ViewModel;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Markup;

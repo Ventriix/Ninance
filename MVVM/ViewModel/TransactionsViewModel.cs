@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace Ninance_v2.MVVM.ViewModel
 {
-    class TransactionsViewModel : ObservableObject
+    public class TransactionsViewModel : ObservableObject
     {
 
         private ObservableCollection<CsvTransaction> _transactions;
@@ -22,7 +22,7 @@ namespace Ninance_v2.MVVM.ViewModel
             get { return CollectionViewSource.GetDefaultView(Transactions); }
         }
 
-        public ICommand DeleteTransaction { get; set; }
+        public RelayCommand DeleteTransaction { get; set; }
 
         public TransactionsViewModel()
         {

@@ -76,6 +76,8 @@
                     <wpfui:NavigationItem
                         Content="Scheduled Transactions"
                         Icon="CalendarSync16"
+                        IsEnabled="False"
+                        Opacity="0.5"
                         Tag="sched_transactions"
                         Type="{x:Type view:AddTransactionView}" />
                     <wpfui:NavigationItem

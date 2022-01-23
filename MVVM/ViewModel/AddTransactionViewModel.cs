@@ -2,9 +2,8 @@
 
 namespace Ninance_v2.MVVM.ViewModel
 {
-    class AddTransactionViewModel : ObservableObject
+    public class AddTransactionViewModel : ObservableObject
     {
-
         public RelayCommand AddTransactionCommand { get; set; }
 
         private string _usageText;
@@ -14,35 +13,41 @@ namespace Ninance_v2.MVVM.ViewModel
             set { _usageText = value; OnPropertyChanged(); }
         }
 
-        private string _amountText;
-        public string AmountText
+        private string _amount;
+        public string Amount
         {
-            get { return _amountText; }
-            set { _amountText = value; OnPropertyChanged(); }
+            get { return _amount; }
+            set { _amount = value; OnPropertyChanged(); }
+        }
+
+        private int _selectedPlusMinusIndex;
+        public int SelectedPlusMinusIndex
+        {
+            get { return _selectedPlusMinusIndex; }
+            set { _selectedPlusMinusIndex = value; OnPropertyChanged(); }
         }
 
         public AddTransactionViewModel()
         {
             AddTransactionCommand = new RelayCommand(o => {
-                double parsedAmount = 00.00;
-
-                if (UsageText == null || AmountText == null)
+                if (UsageText == null)
                     return;
 
-                if (!AmountText.StartsWith("+") && !AmountText.StartsWith("-"))
+                if (Amount == "")
                     return;
 
-                if (!double.TryParse(AmountText.Substring(1), out parsedAmount))
+                double parsedAmount;
+
+                if (!double.TryParse(Amount.Replace(".", ","), out parsedAmount))
                     return;
 
-                App.TransactionHandler.AddTransaction(parsedAmount, AmountText.StartsWith("+"), UsageText);
+                App.TransactionHandler.AddTransaction(parsedAmount, SelectedPlusMinusIndex == 0, UsageText);
                 UsageText = "";
-                AmountText = "";
+                Amount = "";
 
-                MainWindow mainWindow = new MainWindow();
-                App.Current.MainWindow.Close();
-                App.Current.MainWindow = mainWindow;
-                mainWindow.Show();
+                ((MainWindow)App.Current.MainWindow).RootNavigation.Navigate("dashboard", true); // Nothing is more permanent than a temporary solution
+                ((MainWindow)App.Current.MainWindow).RootNavigation.Navigate("transactions", true);
+                ((MainWindow)App.Current.MainWindow).RootNavigation.Navigate("dashboard", true);
             }, o => { return true; });
         }
     }

@@ -31,11 +31,6 @@ namespace Ninance_v2.Core
             File.Delete(CsvPath);
             App.TransactionHandler = new TransactionHandler();
             App.DatabaseHandler = new DatabaseHandler();
-
-            MainWindow mainWindow = new MainWindow();
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = mainWindow;
-            mainWindow.Show();
         }
 
         public bool ImportFile(string path, DatabaseType version)
@@ -74,11 +69,6 @@ namespace Ninance_v2.Core
 
                 csvWriter.Flush();
             }
-
-            MainWindow mainWindow = new MainWindow();
-            App.Current.MainWindow.Close();
-            App.Current.MainWindow = mainWindow;
-            mainWindow.Show();
 
             return true;
         }
