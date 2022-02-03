@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "0eef330a-06b3-4889-90f3-1bab7b4bd926": {
+      "ProjectGuid": "0eef330a-06b3-4889-90f3-1bab7b4bd926",
+      "DisplayName": "Ninance v2",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "5af06178-db83-41aa-82f2-1f8fbebaaa3c": {
+      "ProjectGuid": "5af06178-db83-41aa-82f2-1f8fbebaaa3c",
+      "DisplayName": "Solution Items",
+      "ColorIndex": 1
+    }
+  },
+  "NextColorIndex": 2
+}
