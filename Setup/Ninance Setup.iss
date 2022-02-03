@@ -10,7 +10,7 @@
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{A526551C-AFD5-419B-8278-4B7AEF8B55FA}
+AppId={{50FA1105-BFFF-4775-98A4-DFD0799AB3B6}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -24,7 +24,7 @@ DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=D:\Workspace\C#\Ninance v2\Setup
-OutputBaseFilename=Ninance Setup
+OutputBaseFilename=Ninance_Setup
 SetupIconFile=D:\Workspace\C#\Ninance v2\Ninance Logo.ico
 Compression=lzma
 SolidCompression=yes

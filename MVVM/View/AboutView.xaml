@@ -45,6 +45,6 @@
             FontSize="12"
             FontWeight="Light"
             Foreground="White"
-            Text="Version: v2.0.0" />
+            Text="{Binding Version}" />
     </Grid>
 </Page>
