@@ -10,7 +10,7 @@ namespace Ninance_v2
             InitializeComponent();
 
             AutoUpdaterDotNET.AutoUpdater.DownloadPath = Environment.CurrentDirectory + "/temp";
-            AutoUpdaterDotNET.AutoUpdater.Start("https://github.com/Ventriix/Ninance/blob/main/version_manifest.xml");
+            AutoUpdaterDotNET.AutoUpdater.Start("https://raw.githubusercontent.com/Ventriix/Ninance/main/version_manifest.xml");
 
             WPFUI.Theme.Manager.Switch(App.ConfigHandler.Settings.UsingDarkMode ? WPFUI.Theme.Style.Dark : WPFUI.Theme.Style.Light);
             WPFUI.Background.Manager.Apply(this);
