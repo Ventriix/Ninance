@@ -1,0 +1,89 @@
+﻿<Page
+    x:Class="Ninance_v2.MVVM.View.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Ninance_v2.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModel="clr-namespace:Ninance_v2.MVVM.ViewModel"
+    xmlns:wpfui="clr-namespace:WPFUI.Controls;assembly=WPFUI"
+    Title="SettingsView"
+    d:DesignHeight="580"
+    d:DesignWidth="750"
+    Style="{StaticResource UiPageScrollable}"
+    mc:Ignorable="d">
+    <Page.DataContext>
+        <viewModel:SettingsViewModel />
+    </Page.DataContext>
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <wpfui:CardControl
+            Title="Theme"
+            Grid.Row="0"
+            Margin="0,0,0,8"
+            Icon="DarkTheme24"
+            Subtitle="Set the theme of Ninance">
+            <ComboBox
+                x:Name="ThemeSelector"
+                MinWidth="140"
+                SelectedIndex="{Binding ThemeSelectorIndex}">
+                <ComboBoxItem Content="Dark" />
+                <ComboBoxItem Content="Light" />
+            </ComboBox>
+        </wpfui:CardControl>
+        <wpfui:CardControl
+            Title="Delete User Data"
+            Grid.Row="1"
+            Margin="0,0,0,8"
+            Icon="Delete16"
+            Subtitle="Delete all existing data in the database (WARNING: This is irreversible and deletes all existing data!)">
+            <wpfui:Button
+                x:Name="DeleteDatabaseButton"
+                Appearance="Danger"
+                Command="{Binding DeleteDatabaseButtonCommand}"
+                Content="Delete" />
+        </wpfui:CardControl>
+        <wpfui:CardControl
+            Title="Import Database"
+            Grid.Row="2"
+            Margin="0,0,0,8"
+            Icon="AppGeneric20"
+            Subtitle="Import a database (WARNING: This overrides all existing data!)">
+            <wpfui:Button
+                x:Name="ImportDatabaseButton"
+                Appearance="Caution"
+                Command="{Binding ImportDatabaseButtonCommand}"
+                Content="Import" />
+        </wpfui:CardControl>
+        <wpfui:CardControl
+            Title="Import Old Database"
+            Grid.Row="3"
+            Margin="0,0,0,8"
+            Icon="AppFolder20"
+            Subtitle="LEGACY: Import a old database from Ninance V1">
+            <wpfui:Button
+                x:Name="ImportOldDatabaseButton"
+                Appearance="Caution"
+                Command="{Binding ImportOldDatabaseButtonCommand}"
+                Content="Import" />
+        </wpfui:CardControl>
+        <wpfui:CardControl
+            Title="Export Database"
+            Grid.Row="4"
+            Margin="0,0,0,8"
+            Icon="Archive16"
+            Subtitle="Export all transactions to a file">
+            <wpfui:Button
+                x:Name="ExportDatabaseButton"
+                Appearance="Secondary"
+                Command="{Binding ExportDatabaseButtonCommand}"
+                Content="Export" />
+        </wpfui:CardControl>
+    </Grid>
+</Page>
