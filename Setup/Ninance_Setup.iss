@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Ninance"
-#define MyAppVersion "2.0.1"
+#define MyAppVersion "2.0.2"
 #define MyAppPublisher "Ventriix (Nico)"
 #define MyAppURL "https://github.com/Ventriix/Ninance"
 #define MyAppExeName "Ninance v2.exe"
