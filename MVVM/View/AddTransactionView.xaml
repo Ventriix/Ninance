@@ -42,6 +42,7 @@
             Mask="(***) *** - ****"
             MaxLength="10"
             MaxLines="1"
+            Min="0"
             Placeholder="Amount of money (ex. 24.99)"
             Text="{Binding Amount, UpdateSourceTrigger=PropertyChanged}" />
         <wpfui:Button
