@@ -75,7 +75,7 @@ namespace Ninance_v2.Core
 
         public void ExportToFile(string path)
         {
-            File.Copy(CsvPath, path);
+            File.Copy(CsvPath, path, true);
         }
     }
 }
