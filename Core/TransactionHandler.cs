@@ -28,7 +28,58 @@ namespace Ninance_v2.Core
         public CsvTransaction(int Id, double Amount, bool PlusOrMinus, string Usage)
         {
             this.Id = Id;
-            Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            this.Timestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            this.Amount = Amount;
+            this.PlusOrMinus = PlusOrMinus;
+            this.Usage = Usage;
+        }
+    }
+
+    public enum TimeUnit
+    {
+        Minutes,
+        Hours,
+        Days,
+        Months,
+        Years
+    }
+
+    public class CsvScheduledTransaction
+    {
+        public int Id { get; set; }
+        public long CreatedTimestamp { get; set; }
+        public long NextDueTimestamp { get; set; }
+        public long LastDueTimestamp { get; set; }
+        public long StartTimestamp { get; set; }
+        public int RepeatNumber { get; set; }
+        public TimeUnit RepeatTimeUnit { get; set; }
+        public double Amount { get;set; }
+        public bool PlusOrMinus { get; set; } // True is plus and False is minus
+        public string Usage { get; set; }
+
+        public CsvScheduledTransaction (int Id, long CreatedTimestamp, long NextDueTimestamp, long LastDueTimestamp, long StartTimestamp, int RepeatNumber, TimeUnit RepeatTimeUnit, double Amount, bool PlusOrMinus, string Usage)
+        {
+            this.Id = Id;
+            this.CreatedTimestamp = CreatedTimestamp;
+            this.NextDueTimestamp = NextDueTimestamp;
+            this.LastDueTimestamp = LastDueTimestamp;
+            this.StartTimestamp = StartTimestamp;
+            this.RepeatNumber = RepeatNumber;
+            this.RepeatTimeUnit = RepeatTimeUnit;
+            this.Amount = Amount;
+            this.PlusOrMinus = PlusOrMinus;
+            this.Usage = Usage;
+        }
+
+        public CsvScheduledTransaction(int Id, long NextDueTimestamp, long LastDueTimestamp, long StartTimestamp, int RepeatNumber, TimeUnit RepeatTimeUnit, double Amount, bool PlusOrMinus, string Usage)
+        {
+            this.Id = Id;
+            this.CreatedTimestamp = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+            this.NextDueTimestamp = NextDueTimestamp;
+            this.LastDueTimestamp = LastDueTimestamp;
+            this.StartTimestamp = StartTimestamp;
+            this.RepeatNumber = RepeatNumber;
+            this.RepeatTimeUnit = RepeatTimeUnit;
             this.Amount = Amount;
             this.PlusOrMinus = PlusOrMinus;
             this.Usage = Usage;
@@ -39,6 +90,7 @@ namespace Ninance_v2.Core
     {
 
         public static string CsvPath = Environment.CurrentDirectory + "/data/transactions.csv";
+        public static string ScheduledTransactionsCsvPath = Environment.CurrentDirectory + "/data/scheduled_transactions.csv";
 
         public TransactionHandler()
         {
@@ -61,6 +113,45 @@ namespace Ninance_v2.Core
                     Console.WriteLine("Created data/transactions.csv");
                 }
             }
+
+            File.Delete(ScheduledTransactionsCsvPath);
+
+            if (!File.Exists(ScheduledTransactionsCsvPath))
+            {
+                using (var stream = File.Open(ScheduledTransactionsCsvPath, FileMode.Create))
+                using (var writer = new StreamWriter(stream))
+                using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    /* Write header and flush */
+                    csv.WriteHeader<CsvScheduledTransaction>();
+                    csv.NextRecord();
+                    csv.Flush();
+
+                    Console.WriteLine("Created data/scheduled_transactions.csv");
+                }
+            }
+        }
+
+        public void AddScheduledTransaction(TimeUnit repeatTimeUnit, int repeatNumber, long startTimestamp, double amount, bool plusOrMinus, string usage)
+        {
+            int id = GetIdForNewScheduledTransaction();
+
+            using (var stream = File.Open(ScheduledTransactionsCsvPath, FileMode.Append))
+            using (var writer = new StreamWriter(stream))
+            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            {
+                CsvScheduledTransaction csvScheduledTransaction = new CsvScheduledTransaction(GetIdForNewScheduledTransaction(), CalculateNextDueDate(repeatTimeUnit, repeatNumber, startTimestamp), -1, startTimestamp, repeatNumber, repeatTimeUnit, amount, plusOrMinus, usage);
+
+                /* Write new scheduled transaction record and flush */
+                csv.WriteRecord(csvScheduledTransaction);
+                csv.NextRecord();
+                csv.Flush();
+            }
+        }
+
+        public long CalculateNextDueDate(TimeUnit repeatTimeUnit, int repeatNumber, long beginTimestamp)
+        {
+
         }
 
         public void AddTransaction(double amount, bool plusOrMinus, string usage)
@@ -83,6 +174,11 @@ namespace Ninance_v2.Core
         public static int GetIdForNewTransaction()
         {
             return File.ReadLines(CsvPath).Count();
+        }
+
+        public static int GetIdForNewScheduledTransaction()
+        {
+            return File.ReadLines(ScheduledTransactionsCsvPath).Count();
         }
 
         public void RemoveTransaction(int id)
